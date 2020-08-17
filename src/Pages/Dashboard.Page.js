@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {
   Segment,
   Header,
@@ -9,6 +10,8 @@ import {
 } from "semantic-ui-react";
 
 function Dashboard() {
+  const state = useSelector((state) => state);
+
   return (
     <React.Fragment>
       <Segment.Group raised>
