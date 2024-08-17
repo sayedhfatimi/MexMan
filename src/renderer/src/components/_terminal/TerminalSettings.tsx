@@ -15,7 +15,6 @@ import {
 import { defaultTerminalLayout } from '@/lib/consts/terminal/gridConfig'
 import useKBShortcut from '@/lib/hooks/useKBShortcuts'
 import { useVault } from '@/lib/vault'
-import _ from 'lodash'
 import { LuEye, LuEyeOff, LuSettings } from 'react-icons/lu'
 import { MdLockReset } from 'react-icons/md'
 
@@ -89,9 +88,9 @@ const TerminalSettings = (): JSX.Element => {
                   <LuEyeOff size={ICON_SIZE_SMALL} />
                   <Switch
                     id={component.i}
-                    checked={_.some(activeComponents, (o) => o.i === component.i)}
+                    checked={activeComponents.some((item) => item.i === component.i)}
                     onCheckedChange={() => {
-                      if (_.some(activeComponents, (o) => o.i === component.i)) {
+                      if (activeComponents.some((item) => item.i === component.i)) {
                         removeComponent(component)
                       } else {
                         addComponent(component)

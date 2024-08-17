@@ -57,7 +57,7 @@ const RecentTrades = React.forwardRef<
       {children}
       <GridComponentTitleBar item={props['data-grid']}>
         <Header>
-          <div className="no-drag z-50 flex items-center space-x-2">
+          <div className="no-drag z-50 flex items-center space-x-1">
             <Label htmlFor="visibleTrades" className="text-xs">
               Show:
             </Label>

@@ -7,6 +7,6 @@ export const RecentTrades: Layout = {
   w: 12,
   h: 4,
   minH: 2,
-  minW: 6,
+  minW: 8,
   isResizable: true
 }

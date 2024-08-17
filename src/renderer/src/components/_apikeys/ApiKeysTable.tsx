@@ -1,12 +1,12 @@
+import NoAPIKeys from '@/components/_terminal/NoAPIKeys'
 import { Badge } from '@/components/ui/badge'
 import { ICON_SIZE_SMALL } from '@/lib/consts/UI'
 import type { TAPIKey } from '@/lib/types/vault/TAPIKey'
 import { useVault } from '@/lib/vault'
 import { LuX } from 'react-icons/lu'
-import NoAPIKeys from '@/components/_terminal/NoAPIKeys'
 import ApiKeysDeleteButton from './ApiKeysDeleteButton'
 
-const ApiKeysTable = (): JSX.Element => {
+const ApiKeysTable = ({ show }: { show: boolean }): JSX.Element => {
   const APIKeys = useVault.use.APIKeys()
 
   if (APIKeys.length === 0)
@@ -36,8 +36,10 @@ const ApiKeysTable = (): JSX.Element => {
             <td className="px-2 py-2">
               <Badge variant="secondary">{api.label}</Badge>
             </td>
-            <td className="py-2 text-right text-xs">{api.id}</td>
-            <td className="py-2 text-right text-xs">{api.key}</td>
+            <td className="py-2 text-right text-xs">{show ? api.id : '******'}</td>
+            <td className="py-2 text-right text-xs">
+              {show ? api.key : '***********************'}
+            </td>
             <td className="px-2 py-2 text-right">
               <ApiKeysDeleteButton APIKeyObj={api} />
             </td>
