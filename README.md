@@ -9,6 +9,8 @@
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
+![App Screenshot](https://i.ibb.co/PtdQ82q/Screenshot-2024-08-17-142733.png)
+
 ## Progress
 
 ### Done

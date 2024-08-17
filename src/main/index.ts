@@ -71,7 +71,6 @@ app.whenReady().then(() => {
   ipcMain.handle(
     'bitmex:authRESTRequest',
     async (_event, verb: string, path: string, key: string, secret: string, data?: string) => {
-      console.log(verb, path, key, secret, data)
       const authObj = getAuthObj(verb, path, key, secret, data)
 
       const authHeaders = {
@@ -116,7 +115,6 @@ function signMessage(
   } else {
     parsedData = data
   }
-  console.log(parsedData)
 
   return createHmac('sha256', secret)
     .update(verb + path + expires + parsedData)
