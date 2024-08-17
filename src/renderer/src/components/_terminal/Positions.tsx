@@ -6,7 +6,8 @@ import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
 
 const Positions = (): JSX.Element => {
-  const data: TPosition[] = useVault((state) => state?._data?.[TABLE_NAME_POSITION]?.['*']) || []
+  const ticker = useVault.use.terminal().ticker
+  const data: TPosition[] = useVault((state) => state?._data?.[TABLE_NAME_POSITION]?.[ticker]) || []
 
   const filteredData = data
     .filter((position) => position.isOpen)

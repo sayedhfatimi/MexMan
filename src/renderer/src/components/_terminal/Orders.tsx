@@ -5,7 +5,8 @@ import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
 
 const Orders = (): JSX.Element => {
-  const data: TOrder[] = useVault((state) => state?._data?.[TABLE_NAME_ORDER]?.['*']) || []
+  const ticker = useVault.use.terminal().ticker
+  const data: TOrder[] = useVault((state) => state?._data?.[TABLE_NAME_ORDER]?.[ticker]) || []
 
   const filteredData = data
     .filter((order) => order.ordStatus !== 'Canceled')
