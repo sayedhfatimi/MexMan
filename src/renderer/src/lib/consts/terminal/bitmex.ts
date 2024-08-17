@@ -1,4 +1,6 @@
-export const WS_URL = 'wss://ws.bitmex.com/realtime'
+export const WS_BASE_URL = 'wss://ws.bitmex.com'
+export const WS_ENDPOINT = '/realtime'
+export const WS_MD_ENDPOINT = '/realtimemd'
 
 export const TABLE_NAME_ORDERBOOK = 'orderBookL2'
 export const TABLE_NAME_INSTRUMENT = 'instrument'

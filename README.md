@@ -28,6 +28,8 @@
 - [x] Add Ticker List
 - [x] Add ability to customize terminal
 - [x] Add Wallet
+- [x] Build UI to view balance information across all API Keys
+- [x] Build UI to view positions across all API Keys
 
 ### TODO
 
@@ -35,10 +37,8 @@
 - [ ] Implement Order setting logic
 - [ ] Add Notifications
 - [ ] Build Depth Chart
-- [ ] Build UI to view balance information across all API Keys
 - [ ] Apply for and implement TradingView for chart
 - [ ] Implement Position closing logic
-- [ ] Build UI to view positions across all API Keys
 - [ ] Auto Build binaries in release for Windows/Mac/Linux
 - [ ] Improve performance in react render process when dragging/resizing components
 

@@ -3,7 +3,8 @@ import type { Layout } from 'react-grid-layout'
 import type { TAPIKey } from './TAPIKey'
 
 export type TVaultState = {
-  _data: TBitMEXClient_DATA
+  data_public: TBitMEXClient_DATA
+  data_private: TBitMEXClient_DATA
   APIKeys: TAPIKey[]
   terminal: {
     ticker: string

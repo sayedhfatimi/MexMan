@@ -14,7 +14,7 @@ const LastPrice = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & TGridComponentExtendedProps
 >(({ style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props }, ref) => {
   const ticker = useVault.use.terminal().ticker
-  const data = useVault((state) => state?._data?.[TABLE_NAME_INSTRUMENT]?.[ticker]) || []
+  const data = useVault((state) => state?.data_public?.[TABLE_NAME_INSTRUMENT]?.[ticker]) || []
 
   if (!data || data.length === 0)
     return (

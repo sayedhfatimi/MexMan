@@ -20,7 +20,7 @@ const Orderbook = React.forwardRef<
   const ticker = useVault.use.terminal().ticker
   const terminalLayout = useVault.use.terminal().activeComponents
 
-  const data = useVault((state) => state._data?.[TABLE_NAME_ORDERBOOK]?.[ticker]) || []
+  const data = useVault((state) => state.data_public?.[TABLE_NAME_ORDERBOOK]?.[ticker]) || []
 
   if (!data || data.length === 0)
     return (

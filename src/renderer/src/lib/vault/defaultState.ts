@@ -3,7 +3,8 @@ import { DEFAULT_TICKER, DEFAULT_VISIBLE_TRADES } from '@/lib/consts/UI'
 import type { TVaultState } from '@/lib/types/vault/TVaultState'
 
 export const defaultState: TVaultState = {
-  _data: {} as TVaultState['_data'],
+  data_public: {} as TVaultState['data_public'],
+  data_private: {} as TVaultState['data_private'],
   APIKeys: [] as TVaultState['APIKeys'],
   terminal: {
     ticker: DEFAULT_TICKER,

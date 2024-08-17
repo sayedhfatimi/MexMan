@@ -25,12 +25,13 @@ import { useVault } from '@/lib/vault'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { LuPlus, LuRefreshCw } from 'react-icons/lu'
+import { LuEye, LuEyeOff, LuPlus, LuRefreshCw } from 'react-icons/lu'
 import type { z } from 'zod'
 
 const ApiKeysForm = (): JSX.Element => {
   const [open, setOpen] = useState(false)
   const [isSubmitting, setSubmitting] = useState(false)
+  const [show, setShow] = useState(false)
   const addKey = useVault.use.addKey()
 
   const form = useForm<z.infer<typeof createApiKeySchema>>({
@@ -136,7 +137,23 @@ const ApiKeysForm = (): JSX.Element => {
                   <FormLabel className="sr-only">API Client Secret</FormLabel>
                   <FormMessage />
                   <FormControl>
-                    <Input placeholder="API Client Secret" {...field} />
+                    <div className="relative flex flex-row items-center justify-between">
+                      <Input
+                        placeholder="API Client Secret"
+                        {...field}
+                        type={show ? 'text' : 'password'}
+                      />
+                      <div
+                        className="group absolute right-0 inline-flex h-8 w-10 cursor-pointer place-content-center items-center text-muted-foreground hover:text-black dark:hover:text-white"
+                        onClick={() => setShow(!show)}
+                      >
+                        {show ? (
+                          <LuEyeOff className="transition-transform group-hover:scale-125" />
+                        ) : (
+                          <LuEye className="transition-transform group-hover:scale-125" />
+                        )}
+                      </div>
+                    </div>
                   </FormControl>
                   <FormDescription>
                     This will be labelled API Client Secret or API Secret.

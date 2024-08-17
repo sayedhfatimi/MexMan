@@ -14,10 +14,15 @@ const vault = create<TVault>()(
   persist(
     (set, get) => ({
       ...defaultState,
-      setData: (payload: TVaultState['_data']): void =>
+      setPublicData: (payload: TVaultState['data_public']): void =>
         set({
           ...get(),
-          _data: payload
+          data_public: payload
+        }),
+      setPrivateData: (payload: TVaultState['data_private']): void =>
+        set({
+          ...get(),
+          data_private: payload
         }),
       addKey: (payload: TAPIKey): void =>
         set({

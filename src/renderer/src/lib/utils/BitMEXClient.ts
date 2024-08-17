@@ -4,49 +4,31 @@ import type { TBitMEXClient_DATA } from '../types/bitmex/TBitMEXClient_DATA'
 import type { TBitMEXClient_KEYS } from '../types/bitmex/TBitMEXClient_KEYS'
 
 class BitMEXClient<T> {
-  public WS_URL = 'wss://ws.bitmex.com/realtime'
   // private properties
-  private _DATA: TBitMEXClient_DATA = {}
+  private data_public: TBitMEXClient_DATA = {}
   private _KEYS: TBitMEXClient_KEYS = {}
   private STORE_MAX_LENGTH = 10_000
-  private noSymbolTables = [
-    'account',
-    'affiliate',
-    'funds',
-    'insurance',
-    'margin',
-    'transact',
-    'wallet',
-    'announcement',
-    'connected',
-    'chat',
-    'publicNotifications',
-    'privateNotifications'
-  ]
 
   public deltaParser(
     table: string,
-    symbol: string,
+    key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    const tableUsesSymbol = this.noSymbolTables.indexOf(table) === -1
-    if (!tableUsesSymbol) symbol = '*'
-
     switch (wsResponse.action) {
       case 'partial': {
-        return this._partial(table, symbol, wsResponse)
+        return this._partial(table, key, wsResponse)
       }
 
       case 'insert': {
-        return this._insert(table, symbol, wsResponse)
+        return this._insert(table, key, wsResponse)
       }
 
       case 'update': {
-        return this._update(table, symbol, wsResponse)
+        return this._update(table, key, wsResponse)
       }
 
       case 'delete': {
-        return this._delete(table, symbol, wsResponse)
+        return this._delete(table, key, wsResponse)
       }
     }
   }
@@ -55,24 +37,24 @@ class BitMEXClient<T> {
 
   private _partial(
     table: string,
-    symbol: string,
+    key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    if (!this._DATA[table]) this._DATA[table] = {}
+    if (!this.data_public[table]) this.data_public[table] = {}
     const wsData = wsResponse.data || []
 
-    this._DATA[table][symbol] = wsData
+    this.data_public[table][key] = wsData
     this._KEYS[table] = wsResponse.keys!
 
-    return this._DATA
+    return this.data_public
   }
 
   private _insert(
     table: string,
-    symbol: string,
+    key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    const store = this._DATA[table][symbol]
+    const store = this.data_public[table][key]
 
     const mutableStore = [...store, ...wsResponse.data] as T[]
 
@@ -80,15 +62,15 @@ class BitMEXClient<T> {
       mutableStore.splice(0, mutableStore.length - this.STORE_MAX_LENGTH)
     }
 
-    return this.replaceStore(table, symbol, mutableStore)
+    return this.replaceStore(table, key, mutableStore)
   }
 
   private _update(
     table: string,
-    symbol: string,
+    key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    const store = this._DATA[table][symbol]
+    const store = this.data_public[table][key]
 
     const mutableStore = [...store] as T[]
 
@@ -104,15 +86,15 @@ class BitMEXClient<T> {
       }
     }
 
-    return this.replaceStore(table, symbol, mutableStore)
+    return this.replaceStore(table, key, mutableStore)
   }
 
   private _delete(
     table: string,
-    symbol: string,
+    key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    const store = this._DATA[table][symbol]
+    const store = this.data_public[table][key]
 
     let mutableStore = [...store] as T[]
 
@@ -125,18 +107,18 @@ class BitMEXClient<T> {
       }
     }
 
-    return this.replaceStore(table, symbol, mutableStore)
+    return this.replaceStore(table, key, mutableStore)
   }
 
   // deltaParser Helper Functions
 
-  private replaceStore(table: string, symbol: string, newData: T[]): TBitMEXClient_DATA {
-    if (this._DATA[table][symbol] && !Array.isArray(this._DATA[table][symbol])) {
-      this._DATA[table][symbol] = newData[0] as T[]
+  private replaceStore(table: string, key: string, newData: T[]): TBitMEXClient_DATA {
+    if (this.data_public[table][key] && !Array.isArray(this.data_public[table][key])) {
+      this.data_public[table][key] = newData[0] as T[]
     } else {
-      this._DATA[table][symbol] = newData
+      this.data_public[table][key] = newData
     }
-    return this._DATA
+    return this.data_public
   }
 
   private updateItem(item: T, newData: T): T {

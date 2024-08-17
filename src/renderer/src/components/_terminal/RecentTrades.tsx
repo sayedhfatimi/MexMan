@@ -18,7 +18,7 @@ const RecentTrades = React.forwardRef<
 >(({ style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props }, ref) => {
   const ticker = useVault.use.terminal().ticker
   const data: TRecentTrades[] =
-    useVault((state) => state?._data?.[TABLE_NAME_RECENTTRADES]?.[ticker]) || []
+    useVault((state) => state?.data_public?.[TABLE_NAME_RECENTTRADES]?.[ticker]) || []
 
   const visibleTrades = useVault.use.terminal().visibleTrades
   const setVisibleTrades = useVault.use.setVisibleTrades()

@@ -36,11 +36,9 @@ const ApiKeysTable = ({ show }: { show: boolean }): JSX.Element => {
             <td className="px-2 py-2">
               <Badge variant="secondary">{api.label}</Badge>
             </td>
+            <td className="py-2 text-right text-xs">{show ? api.id : '*'.repeat(api.id.length)}</td>
             <td className="py-2 text-right text-xs">
-              {show ? api.id : new Array(api.id.length).fill('*', 0, api.id.length).join('')}
-            </td>
-            <td className="py-2 text-right text-xs">
-              {show ? api.key : new Array(api.key.length).fill('*', 0, api.key.length).join('')}
+              {show ? api.key : '*'.repeat(api.key.length)}
             </td>
             <td className="px-2 py-2 text-right">
               <ApiKeysDeleteButton APIKeyObj={api} />

@@ -128,7 +128,7 @@ function getAuthObj(
   secret: string,
   data?: string
 ): object {
-  const expires = Math.round(new Date().getTime() / 1000) + 60
+  const expires = Math.round(new Date().getTime() / 1000) + 60_000
 
   return {
     'api-expires': expires,
