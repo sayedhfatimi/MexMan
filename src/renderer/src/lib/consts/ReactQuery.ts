@@ -1,0 +1,1 @@
+export const REACT_QUERY_STALE_TIME = 60 * 1000

@@ -1,0 +1,5 @@
+node_modules
+dist
+out
+src/renderer/src/components/ui
+.gitignore
