@@ -1,16 +1,42 @@
 import { Button } from '@/components/ui/button'
 import { TABLE_NAME_ORDER } from '@/lib/consts/terminal/bitmex'
 import type { TOrder } from '@/lib/types/bitmex/TOrder'
+import type { TAPIKey } from '@/lib/types/vault/TAPIKey'
 import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
+import type { SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+
+type TCancelOrderInput = {
+  orderID: TOrder['orderID']
+  account: TAPIKey['id']
+}
 
 const Orders = (): JSX.Element => {
   const ticker = useVault.use.terminal().ticker
   const data: TOrder[] = useVault((state) => state?._data?.[TABLE_NAME_ORDER]?.[ticker]) || []
+  const APIKeys = useVault.use.APIKeys()
+
+  const { register, handleSubmit } = useForm<TCancelOrderInput>()
 
   const filteredData = data
     .filter((order) => order.ordStatus !== 'Canceled')
     .filter((order) => order.ordStatus !== 'Rejected')
+
+  const handleCancelOrder: SubmitHandler<TCancelOrderInput> = async (data) => {
+    const APIKey = APIKeys.find((key) => key.id.toString() === data.account)
+
+    if (APIKey) {
+      await window.electron.ipcRenderer.invoke(
+        'bitmex:authRESTRequest',
+        'DELETE',
+        '/api/v1/order',
+        APIKey.key,
+        APIKey.secret,
+        JSON.stringify({ orderID: data.orderID })
+      )
+    }
+  }
 
   return (
     <table className="table-auto">
@@ -55,8 +81,9 @@ const Orders = (): JSX.Element => {
                 <td className="text-right">{order.ordStatus}</td>
                 <td className="text-right">{new Date(order.timestamp).toLocaleTimeString()}</td>
                 <td className="text-right">
-                  <form>
-                    <input type="hidden" value={order.orderID} name="orderID" />
+                  <form onSubmit={handleSubmit(handleCancelOrder)}>
+                    <input type="hidden" value={order.orderID} {...register('orderID')} />
+                    <input type="hidden" value={order.account} {...register('account')} />
                     <Button
                       variant="outline"
                       size="sm"

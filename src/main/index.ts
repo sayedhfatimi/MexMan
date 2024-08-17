@@ -1,7 +1,6 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
 import { createHmac } from 'crypto'
 import { app, BrowserWindow, ipcMain, Menu, shell } from 'electron'
-import isEmpty, { isObject } from 'lodash'
 import { resolve } from 'path'
 import icon from '../../resources/favicon.ico?asset'
 
@@ -71,9 +70,9 @@ app.whenReady().then(() => {
 
   ipcMain.handle(
     'bitmex:authRESTRequest',
-    async (_event, verb: string, path: string, key: string, secret: string, data?: unknown) => {
-      const postBody = JSON.stringify(data)
-      const authObj = getAuthObj(verb, path, key, secret, postBody)
+    async (_event, verb: string, path: string, key: string, secret: string, data?: string) => {
+      console.log(verb, path, key, secret, data)
+      const authObj = getAuthObj(verb, path, key, secret, data)
 
       const authHeaders = {
         'api-expires': authObj['api-expires'],
@@ -81,7 +80,7 @@ app.whenReady().then(() => {
         'api-signature': authObj['api-signature']
       }
 
-      return await restRequest(verb, path, authHeaders, postBody)
+      return await restRequest(verb, path, authHeaders, data)
     }
   )
 
@@ -109,14 +108,15 @@ function signMessage(
   path: string,
   expires: number,
   secret: string,
-  data?: unknown
+  data?: string
 ): string {
   let parsedData: typeof data
-  if (!data || isEmpty(data)) {
+  if (!data) {
     parsedData = ''
-  } else if (isObject(data)) {
-    parsedData = JSON.stringify(data)
+  } else {
+    parsedData = data
   }
+  console.log(parsedData)
 
   return createHmac('sha256', secret)
     .update(verb + path + expires + parsedData)
@@ -128,9 +128,9 @@ function getAuthObj(
   path: string,
   key: string,
   secret: string,
-  data?: unknown
+  data?: string
 ): object {
-  const expires = Math.round(new Date().getTime() / 1000) + 60_000
+  const expires = Math.round(new Date().getTime() / 1000) + 60
 
   return {
     'api-expires': expires,
