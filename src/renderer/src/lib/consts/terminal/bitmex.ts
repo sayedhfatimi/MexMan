@@ -1,5 +1,4 @@
 export const WS_URL = 'wss://ws.bitmex.com/realtime'
-export const REST_URL = 'https://www.bitmex.com/api/v1'
 
 export const TABLE_NAME_ORDERBOOK = 'orderBookL2'
 export const TABLE_NAME_INSTRUMENT = 'instrument'

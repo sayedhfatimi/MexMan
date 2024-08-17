@@ -2,7 +2,7 @@ export type TOrder = {
   orderID: string
   clOrdID: string
   clOrdLinkID: string
-  account: number
+  account: string
   symbol: string
   side: string
   orderQty: number

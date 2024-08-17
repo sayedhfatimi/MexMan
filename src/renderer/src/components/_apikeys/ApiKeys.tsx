@@ -5,10 +5,10 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Separator } from '@/components/ui/separator'
 import { ICON_SIZE_LARGE, ICON_SIZE_SMALL, KB_SHORTCUT_APIKEYS_SETTINGS } from '@/lib/consts/UI'
 import useKBShortcut from '@/lib/hooks/useKBShortcuts'
-import { LuEye, LuEyeOff, LuKeyRound } from 'react-icons/lu'
-import ApiKeysTable from './ApiKeysTable'
-import ApiKeysForm from './ApiKeysForm'
 import { useState } from 'react'
+import { LuEye, LuEyeOff, LuKeyRound } from 'react-icons/lu'
+import ApiKeysForm from './ApiKeysForm'
+import ApiKeysTable from './ApiKeysTable'
 
 const ApiKeys = (): JSX.Element => {
   const [show, setShow] = useState(false)
@@ -39,8 +39,12 @@ const ApiKeys = (): JSX.Element => {
           </header>
 
           <aside className="flex items-center space-x-2">
-            <Button variant="outline" size="sm" onClick={() => setShow(!show)}>
-              {show ? <LuEyeOff /> : <LuEye />}
+            <Button variant="outline" size="sm" onClick={() => setShow(!show)} className="group">
+              {show ? (
+                <LuEyeOff className="transition-transform group-hover:scale-125" />
+              ) : (
+                <LuEye className="transition-transform group-hover:scale-125" />
+              )}
             </Button>
             <ApiKeysForm />
           </aside>

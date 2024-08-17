@@ -1,5 +1,5 @@
 export type TWallet = {
-  account: number
+  account: string
   currency: string
   deposited: number
   withdrawn: number

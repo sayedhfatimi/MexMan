@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { ICON_SIZE_SMALL } from '@/lib/consts/UI'
 import { createApiKeySchema } from '@/lib/schemas/createApiKeySchema'
+import type { TAPIKey } from '@/lib/types/vault/TAPIKey'
 import { useVault } from '@/lib/vault'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useState } from 'react'
@@ -67,9 +68,9 @@ const ApiKeysForm = (): JSX.Element => {
       return
     }
 
-    const apiKey = {
+    const apiKey: TAPIKey = {
       ...data,
-      id: res.id
+      id: res.id.toString()
     }
     addKey(apiKey)
     setOpen(false)

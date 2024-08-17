@@ -1,5 +1,5 @@
 export type TPosition = {
-  account: number
+  account: string
   symbol: string
   currency: string
   underlying: string
