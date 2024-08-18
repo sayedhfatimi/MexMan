@@ -7,7 +7,7 @@ import useKBShortcut from '@/lib/hooks/useKBShortcuts'
 import useTickers from '@/lib/hooks/useTickers'
 import useTickerVolumes from '@/lib/hooks/useTickerVolumes'
 import { useVault } from '@/lib/vault'
-import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { TickerListColumns } from './TickerListColumns'
 import { TickerListTable } from './TickerListTable'
 
@@ -47,8 +47,8 @@ const TickerList = (): JSX.Element => {
           <KBShortcutLabel char={KB_SHORTCUT_TICKER_LIST} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[900px] select-none bg-muted">
-        <ContentWrapper>
+      <PopoverContent className="w-[900px] select-none p-0">
+        <ContentWrapper className="border-0">
           <TickerListTable columns={TickerListColumns} data={filteredData} />
         </ContentWrapper>
       </PopoverContent>

@@ -87,7 +87,7 @@ const ApiKeysForm = (): JSX.Element => {
           <span>Add New Key</span>
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="select-none">
         <DialogHeader>
           <DialogTitle>Add New API Key</DialogTitle>
           <DialogDescription>Fill out form below to add a new account API.</DialogDescription>

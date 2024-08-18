@@ -5,14 +5,15 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { Separator } from '@/components/ui/separator'
 import { ICON_SIZE_LARGE, ICON_SIZE_SMALL, KB_SHORTCUT_APIKEYS_SETTINGS } from '@/lib/consts/UI'
 import useKBShortcut from '@/lib/hooks/useKBShortcuts'
-import { useState } from 'react'
-import { LuEye, LuEyeOff, LuKeyRound } from 'react-icons/lu'
+import { useVault } from '@/lib/vault'
+import { LuKeyRound } from 'react-icons/lu'
 import ApiKeysForm from './ApiKeysForm'
-import ApiKeysTable from './ApiKeysTable'
+import { APIKeysDataTable } from './APIKeysTable'
+import { APIKeysColumns } from './APIKeysTable/APIKeysColumns'
 
-const ApiKeys = (): JSX.Element => {
-  const [show, setShow] = useState(false)
+const APIKeys = (): JSX.Element => {
   const { open, setOpen } = useKBShortcut(KB_SHORTCUT_APIKEYS_SETTINGS)
+  const APIKeys = useVault.use.APIKeys()
 
   return (
     <Popover onOpenChange={setOpen} open={open} modal>
@@ -25,7 +26,7 @@ const ApiKeys = (): JSX.Element => {
           <KBShortcutLabel char={KB_SHORTCUT_APIKEYS_SETTINGS} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[900px] select-none space-y-2 text-pretty font-mono">
+      <PopoverContent className="w-[900px] select-none space-y-2 font-mono">
         <div className="flex items-center justify-between">
           <header className="group flex flex-row items-center space-x-4">
             <LuKeyRound
@@ -38,26 +39,17 @@ const ApiKeys = (): JSX.Element => {
             </div>
           </header>
 
-          <aside className="flex items-center space-x-2">
-            <Button variant="outline" size="sm" onClick={() => setShow(!show)} className="group">
-              {show ? (
-                <LuEyeOff className="transition-transform group-hover:scale-125" />
-              ) : (
-                <LuEye className="transition-transform group-hover:scale-125" />
-              )}
-            </Button>
-            <ApiKeysForm />
-          </aside>
+          <ApiKeysForm />
         </div>
 
         <Separator />
 
-        <ContentWrapper className="shadow-sm">
-          <ApiKeysTable show={show} />
+        <ContentWrapper>
+          <APIKeysDataTable columns={APIKeysColumns} data={APIKeys} />
         </ContentWrapper>
       </PopoverContent>
     </Popover>
   )
 }
 
-export default ApiKeys
+export default APIKeys

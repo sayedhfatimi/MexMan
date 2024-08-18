@@ -1,4 +1,4 @@
-import ApiKeys from './_apikeys/ApiKeys'
+import APIKeys from './_apikeys'
 import TerminalSettings from './_terminal/TerminalSettings'
 import TickerList from './_terminal/TickerList'
 import TickerStrip from './_terminal/TickerStrip'
@@ -16,7 +16,7 @@ const AppTray = (): JSX.Element => {
       <div className="flex grow flex-row items-center justify-end space-x-2">
         <Wallet />
         <TerminalSettings />
-        <ApiKeys />
+        <APIKeys />
         <ThemeToggle />
       </div>
     </div>

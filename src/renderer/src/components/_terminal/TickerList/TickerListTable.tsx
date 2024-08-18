@@ -72,7 +72,7 @@ export function TickerListTable<TData, TValue>({
           <LuX className="transition-transform group-hover:scale-125" />
         </Button>
       </div>
-      <div className="flex-grow overflow-y-scroll font-mono text-sm">
+      <div className="flex-grow overflow-y-scroll">
         <table className="relative w-full table-fixed">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -81,7 +81,7 @@ export function TickerListTable<TData, TValue>({
                   return (
                     <th
                       key={header.id}
-                      className="sticky top-0 z-50 bg-slate-500 px-2 py-2 dark:bg-secondary"
+                      className="sticky top-0 z-50 bg-slate-500 p-2 dark:bg-secondary"
                     >
                       {header.isPlaceholder
                         ? null
@@ -105,7 +105,7 @@ export function TickerListTable<TData, TValue>({
                   onClick={() => setTicker(row.getValue('symbol'))}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-2 py-2">
+                    <td key={cell.id} className="p-2">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ))}
