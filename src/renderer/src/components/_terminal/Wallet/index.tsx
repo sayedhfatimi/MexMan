@@ -1,5 +1,11 @@
 import ContentWrapper from '@/components/ContentWrapper'
 import KBShortcutLabel from '@/components/KBShortcutLabel'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Separator } from '@/components/ui/separator'
@@ -8,7 +14,6 @@ import { ICON_SIZE_LARGE, ICON_SIZE_SMALL, KB_SHORTCUT_WALLET } from '@/lib/cons
 import useKBShortcut from '@/lib/hooks/useKBShortcuts'
 import { useVault } from '@/lib/vault'
 import { LuWallet } from 'react-icons/lu'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
 import WalletAccount from './WalletAccount'
 
 const Wallet = (): JSX.Element | null => {

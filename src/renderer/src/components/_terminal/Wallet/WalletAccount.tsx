@@ -1,9 +1,8 @@
 import { symbolSignificantFiguresMap } from '@/lib/consts/terminal/bitmex'
-import { CryptoIconMap } from '@/lib/consts/terminal/cryptoIconMap'
 import { ICON_SIZE_SMALL } from '@/lib/consts/UI'
 import type { TWallet } from '@/lib/types/bitmex/TWallet'
 import { LuChevronDown } from 'react-icons/lu'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../ui/collapsible'
 
 const WalletAccount = ({ data }: { data: TWallet[] }): JSX.Element => {
   return (
@@ -14,7 +13,7 @@ const WalletAccount = ({ data }: { data: TWallet[] }): JSX.Element => {
             <div className="group flex w-full flex-row items-center justify-between px-1 py-2 transition-colors hover:bg-secondary">
               <div className="flex flex-row items-center space-x-2 px-2">
                 <img
-                  src={`./images/cryptoIcons/${CryptoIconMap[asset.currency.toLowerCase()]}`}
+                  src={`./images/cryptoIcons/${asset.currency.toLowerCase()}.svg`}
                   height={16}
                   width={16}
                   alt={asset.currency}

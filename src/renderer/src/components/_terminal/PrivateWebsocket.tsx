@@ -3,6 +3,7 @@ import {
   TABLE_NAME_POSITION,
   TABLE_NAME_WALLET,
   WS_BASE_URL,
+  WS_ENDPOINT,
   WS_MD_ENDPOINT
 } from '@/lib/consts/terminal/bitmex'
 import type { TOrder } from '@/lib/types/bitmex/TOrder'
@@ -26,7 +27,7 @@ const PrivateWebsocket = (): JSX.Element => {
       for (const api of APIKeys) {
         sendJsonMessage([1, api.key, api.id])
 
-        Promise.resolve(getAuth('GET', '/realtime', api.key, api.secret)).then((res) => {
+        Promise.resolve(getAuth('GET', WS_ENDPOINT, api.key, api.secret)).then((res) => {
           sendJsonMessage([
             0,
             api.key,

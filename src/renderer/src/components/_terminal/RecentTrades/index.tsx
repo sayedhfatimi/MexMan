@@ -1,16 +1,14 @@
 import Spinner from '@/components/Spinner'
 import { Label } from '@/components/ui/label'
 import { TABLE_NAME_RECENTTRADES } from '@/lib/consts/terminal/bitmex'
-import { ICON_SIZE_SMALL } from '@/lib/consts/UI'
 import type { TRecentTrades } from '@/lib/types/bitmex/TRecentTrades'
 import type { TGridComponentExtendedProps } from '@/lib/types/terminal/TGridComponentExtendedProps'
-import { cn, numberParser } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { useVault } from '@/lib/vault'
-import classNames from 'classnames'
 import React from 'react'
-import { LuArrowUpDown, LuClock } from 'react-icons/lu'
-import { TiArrowDown, TiArrowUp } from 'react-icons/ti'
-import GridComponentTitleBar from './GridComponentTitleBar'
+import GridComponentTitleBar from '../GridComponentTitleBar'
+import RecentTradesHeader from './RecentTradesHeader'
+import RecentTradesRow from './RecentTradesRow'
 
 const RecentTrades = React.forwardRef<
   HTMLDivElement,
@@ -56,7 +54,7 @@ const RecentTrades = React.forwardRef<
     >
       {children}
       <GridComponentTitleBar item={props['data-grid']}>
-        <Header>
+        <RecentTradesHeader>
           <div className="no-drag z-50 flex items-center space-x-1">
             <Label htmlFor="visibleTrades" className="text-xs">
               Show:
@@ -76,64 +74,16 @@ const RecentTrades = React.forwardRef<
               <option value={500}>500</option>
             </select>
           </div>
-        </Header>
+        </RecentTradesHeader>
       </GridComponentTitleBar>
       <div className="snap-y overflow-y-auto">
         {filteredData.map((trade) => (
-          <Row key={trade.trdMatchID} trade={trade} className="snap-start" />
+          <RecentTradesRow key={trade.trdMatchID} trade={trade} className="snap-start" />
         ))}
       </div>
     </div>
   )
 })
-
-const Header = ({
-  children,
-  className
-}: {
-  children?: React.ReactNode
-  className?: string
-}): JSX.Element => (
-  <div className={cn('grid w-full grid-cols-8 items-center text-slate-600', className)}>
-    <div className="flex">{children || `Side`}</div>
-    <div className="col-span-2 flex justify-end">Size</div>
-    <div className="col-span-3 flex flex-row items-center justify-end space-x-2">
-      <span>Price</span>
-      <LuArrowUpDown />
-    </div>
-    <div className="col-span-2 flex justify-end">
-      <LuClock />
-    </div>
-  </div>
-)
-
-const Row = ({ trade, className }: { trade: TRecentTrades; className?: string }): JSX.Element => (
-  <div
-    key={trade.trdMatchID}
-    className={cn(
-      classNames({
-        'grid grid-cols-8 px-1 hover:bg-slate-200/50 dark:hover:bg-slate-200/50': true,
-        'bg-green-50 text-green-600 dark:bg-green-950/20 dark:text-green-600': trade.side === 'Buy',
-        'bg-red-50 text-red-400 dark:bg-red-950/20 dark:text-red-600': trade.side === 'Sell'
-      }),
-      className
-    )}
-  >
-    <div className="flex">{trade.side}</div>
-    <div className="col-span-2 flex justify-end">{trade.size.toLocaleString()}</div>
-    <div className="col-span-3 flex flex-row items-center justify-end space-x-2">
-      {trade.tickDirection === 'PlusTick' ? (
-        <TiArrowUp size={ICON_SIZE_SMALL} />
-      ) : trade.tickDirection === 'MinusTick' ? (
-        <TiArrowDown size={ICON_SIZE_SMALL} />
-      ) : null}
-      <span>{numberParser(trade.price)}</span>
-    </div>
-    <div className="col-span-2 flex justify-end text-slate-600">
-      {new Date(trade.timestamp).toLocaleTimeString()}
-    </div>
-  </div>
-)
 
 RecentTrades.displayName = 'RecentTrades'
 

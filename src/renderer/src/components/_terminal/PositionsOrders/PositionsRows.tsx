@@ -4,7 +4,7 @@ import type { TAPIKey } from '@/lib/types/vault/TAPIKey'
 import { numberParser } from '@/lib/utils'
 import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 
 const PositionsRows = ({ APIKey }: { APIKey: TAPIKey }): JSX.Element => {
   const data: TPosition[] =

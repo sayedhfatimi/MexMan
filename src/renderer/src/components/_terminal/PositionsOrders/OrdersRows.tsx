@@ -5,7 +5,7 @@ import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 
 type TCancelOrderInput = {
   orderID: TOrder['orderID']
