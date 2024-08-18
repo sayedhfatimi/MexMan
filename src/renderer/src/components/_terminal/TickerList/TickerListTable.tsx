@@ -1,4 +1,6 @@
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { useVault } from '@/lib/vault'
 import type { ColumnDef, ColumnFiltersState, SortingState } from '@tanstack/react-table'
 import {
@@ -10,6 +12,7 @@ import {
 } from '@tanstack/react-table'
 import classNames from 'classnames'
 import { useState } from 'react'
+import { LuSearch, LuX } from 'react-icons/lu'
 
 interface TickerListTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -46,12 +49,28 @@ export function TickerListTable<TData, TValue>({
 
   return (
     <div className="flex h-[500px] flex-col font-mono">
-      <div className="flex items-center px-2 py-4">
+      <div className="relative flex items-center px-2 py-4">
+        <Label
+          htmlFor="search"
+          className="pointer-events-none absolute left-4 text-muted-foreground"
+        >
+          <LuSearch />
+        </Label>
         <Input
+          id="search"
           placeholder="Search ticker..."
           value={(table.getColumn('symbol')?.getFilterValue() as string) ?? ''}
           onChange={(event) => table.getColumn('symbol')?.setFilterValue(event.target.value)}
+          className="px-8"
         />
+        <Button
+          variant="link"
+          size="icon"
+          className="group absolute right-2"
+          onClick={() => table.getColumn('symbol')?.setFilterValue('')}
+        >
+          <LuX className="transition-transform group-hover:scale-125" />
+        </Button>
       </div>
       <div className="flex-grow overflow-y-scroll font-mono text-sm">
         <table className="relative w-full table-fixed">
@@ -60,7 +79,10 @@ export function TickerListTable<TData, TValue>({
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <th key={header.id} className="sticky top-0 bg-secondary px-2 py-2">
+                    <th
+                      key={header.id}
+                      className="sticky top-0 z-50 bg-slate-500 px-2 py-2 dark:bg-secondary"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(header.column.columnDef.header, header.getContext())}

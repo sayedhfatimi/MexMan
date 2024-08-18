@@ -35,7 +35,9 @@ const TickerList = (): JSX.Element => {
     })
   }
 
-  const filteredData = mergedData.filter((ticker) => ticker.state === 'Open')
+  const filteredData = mergedData
+    .filter((ticker) => ticker.state === 'Open')
+    .filter((ticker) => ticker.turnover24h !== 0)
 
   return (
     <Popover open={open} onOpenChange={setOpen} modal>
@@ -45,7 +47,7 @@ const TickerList = (): JSX.Element => {
           <KBShortcutLabel char={KB_SHORTCUT_TICKER_LIST} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[900px] select-none bg-background">
+      <PopoverContent className="w-[900px] select-none bg-muted">
         <ContentWrapper>
           <TickerListTable columns={TickerListColumns} data={filteredData} />
         </ContentWrapper>

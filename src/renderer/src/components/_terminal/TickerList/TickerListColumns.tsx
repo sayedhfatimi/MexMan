@@ -13,7 +13,7 @@ export const TickerListColumns: ColumnDef<TInstrument>[] = [
       <Button
         variant="link"
         size="sm"
-        className="flex flex-row items-center space-x-2 p-0 text-left"
+        className="flex flex-row items-center space-x-2 p-0 text-left font-bold text-white"
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         <span>Ticker</span>
@@ -43,7 +43,7 @@ export const TickerListColumns: ColumnDef<TInstrument>[] = [
       <Button
         variant="link"
         size="sm"
-        className="inline-flex w-full flex-row items-center justify-end space-x-2 p-0 text-left"
+        className="inline-flex w-full flex-row items-center justify-end space-x-2 p-0 text-left font-bold text-white"
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         {column.getIsSorted() === 'asc' && <LuChevronUp />}
@@ -78,7 +78,7 @@ export const TickerListColumns: ColumnDef<TInstrument>[] = [
       <Button
         variant="link"
         size="sm"
-        className="inline-flex w-full flex-row items-center justify-end space-x-2 p-0 text-left"
+        className="inline-flex w-full flex-row items-center justify-end space-x-2 p-0 text-left font-bold text-white"
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         {column.getIsSorted() === 'asc' && <LuChevronUp />}
@@ -106,7 +106,7 @@ export const TickerListColumns: ColumnDef<TInstrument>[] = [
       <Button
         variant="link"
         size="sm"
-        className="inline-flex w-full flex-row items-center justify-end space-x-2 p-0 text-left"
+        className="inline-flex w-full flex-row items-center justify-end space-x-2 p-0 text-left font-bold text-white"
         onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
       >
         {column.getIsSorted() === 'asc' && <LuChevronUp />}
