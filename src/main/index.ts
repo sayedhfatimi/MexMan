@@ -1,8 +1,9 @@
 import { electronApp, is, optimizer } from '@electron-toolkit/utils'
-import { createHmac } from 'crypto'
 import { app, BrowserWindow, ipcMain, Menu, shell } from 'electron'
 import { resolve } from 'path'
 import icon from '../../resources/favicon.ico?asset'
+import { restRequest } from './restRequest'
+import { getAuthObj } from './getAuthObj'
 
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
@@ -101,58 +102,3 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
-function signMessage(
-  verb: string,
-  path: string,
-  expires: number,
-  secret: string,
-  data?: string
-): string {
-  let parsedData: typeof data
-  if (!data) {
-    parsedData = ''
-  } else {
-    parsedData = data
-  }
-
-  return createHmac('sha256', secret)
-    .update(verb + path + expires + parsedData)
-    .digest('hex')
-}
-
-function getAuthObj(
-  verb: string,
-  path: string,
-  key: string,
-  secret: string,
-  data?: string
-): object {
-  const expires = Math.round(new Date().getTime() / 1000) + 60_000
-
-  return {
-    'api-expires': expires,
-    'api-key': key,
-    'api-signature': signMessage(verb, path, expires, secret, data)
-  }
-}
-
-async function restRequest(
-  verb: string,
-  path: string,
-  authHeaders?: HeadersInit,
-  postBody?: string
-): Promise<unknown> {
-  const res = await fetch(`https://www.bitmex.com${path}`, {
-    method: verb,
-    headers: {
-      'content-type': 'application/json',
-      Accept: 'application/json',
-      'X-Requested-With': 'XMLHttpRequest',
-      ...authHeaders
-    },
-    body: postBody
-  })
-
-  return res.json()
-}

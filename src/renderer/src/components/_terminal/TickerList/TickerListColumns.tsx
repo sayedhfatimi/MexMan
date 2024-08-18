@@ -26,10 +26,8 @@ export const TickerListColumns: ColumnDef<TInstrument>[] = [
         <div className="inline-flex items-center space-x-2">
           <img
             src={`./images/cryptoIcons/${row.original.rootSymbol.toLowerCase()}.svg`}
-            height={16}
-            width={16}
             alt={row.getValue('symbol')}
-            className="transition-transform group-hover:scale-125"
+            className="size-6 transition-transform group-hover:scale-125"
           />
           <span className="font-bold">{row.getValue('symbol')}</span>
         </div>
