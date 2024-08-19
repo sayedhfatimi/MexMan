@@ -19,11 +19,11 @@ import { LuEye, LuEyeOff, LuSettings } from 'react-icons/lu'
 import { MdLockReset } from 'react-icons/md'
 
 const TerminalSettings = (): JSX.Element => {
-  const activeComponents = useVault.use.terminal().activeComponents
-  const ticker = useVault.use.terminal().ticker
-  const removeComponent = useVault.use.removeComponent()
-  const addComponent = useVault.use.addComponent()
-  const resetTerminalLayout = useVault.use.resetTerminalLayout()
+  const activeComponents = useVault((state) => state.terminal.activeComponents)
+  const ticker = useVault((state) => state.terminal.ticker)
+  const removeComponent = useVault((state) => state.removeComponent)
+  const addComponent = useVault((state) => state.addComponent)
+  const resetTerminalLayout = useVault((state) => state.resetTerminalLayout)
 
   const { open, setOpen } = useKBShortcut(KB_SHORTCUT_TERMINAL_SETTINGS)
 

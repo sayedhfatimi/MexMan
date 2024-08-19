@@ -2,17 +2,17 @@ import ContentWrapper from '@/components/ContentWrapper'
 import KBShortcutLabel from '@/components/KBShortcutLabel'
 import Spinner from '@/components/Spinner'
 import { Button } from '@/components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { KB_SHORTCUT_TICKER_LIST } from '@/lib/consts/UI'
 import useKBShortcut from '@/lib/hooks/useKBShortcuts'
 import useTickers from '@/lib/hooks/useTickers'
 import useTickerVolumes from '@/lib/hooks/useTickerVolumes'
 import { useVault } from '@/lib/vault'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { TickerListColumns } from './TickerListColumns'
 import { TickerListTable } from './TickerListTable'
 
 const TickerList = (): JSX.Element => {
-  const ticker = useVault.use.terminal().ticker
+  const ticker = useVault((state) => state.terminal.ticker)
   const { open, setOpen } = useKBShortcut(KB_SHORTCUT_TICKER_LIST)
 
   const { data: tickerData, isLoading: tickerDataStatus } = useTickers()

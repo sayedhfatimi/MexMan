@@ -2,7 +2,7 @@ import { useVault } from '@/lib/vault'
 import PositionsRows from './PositionsRows'
 
 const Positions = (): JSX.Element => {
-  const APIKeys = useVault.use.APIKeys()
+  const APIKeys = useVault((state) => state.APIKeys)
 
   return (
     <table className="table-auto">

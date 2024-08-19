@@ -1,7 +1,6 @@
 import { ICON_SIZE_SMALL } from '@/lib/consts/UI'
 import { useVault } from '@/lib/vault'
 import type React from 'react'
-import { useCallback } from 'react'
 import type { Layout } from 'react-grid-layout'
 import { LuX } from 'react-icons/lu'
 
@@ -12,8 +11,8 @@ const GridComponentTitleBar = ({
   item: Layout
   children?: React.ReactNode
 }): JSX.Element => {
-  const ticker = useVault.use.terminal().ticker
-  const removeComponent = useCallback(useVault.use.removeComponent(), [])
+  const ticker = useVault((state) => state.terminal.ticker)
+  const removeComponent = useVault((state) => state.removeComponent)
 
   return (
     <div className="drag group flex w-full cursor-move items-center justify-between border-b bg-secondary px-1 text-muted-foreground backdrop-blur-sm hover:bg-background">

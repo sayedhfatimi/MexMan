@@ -18,7 +18,7 @@ import { LuBomb, LuTrash2 } from 'react-icons/lu'
 
 const APIKeysDeleteButton = ({ APIKeyObj }: { APIKeyObj: TAPIKey }): JSX.Element => {
   const [isDeleting, setDeleting] = useState(false)
-  const removeKey = useVault.use.removeKey()
+  const removeKey = useVault((state) => state.removeKey)
 
   const confirmDeleteApiKey = (): void => {
     setDeleting(true)

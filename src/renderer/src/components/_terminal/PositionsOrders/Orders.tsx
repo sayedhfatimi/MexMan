@@ -2,7 +2,7 @@ import { useVault } from '@/lib/vault'
 import OrdersRows from './OrdersRows'
 
 const Orders = (): JSX.Element => {
-  const APIKeys = useVault.use.APIKeys()
+  const APIKeys = useVault((state) => state.APIKeys)
 
   return (
     <table className="table-auto">

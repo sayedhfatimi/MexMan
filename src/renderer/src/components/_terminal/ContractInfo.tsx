@@ -16,7 +16,7 @@ const ContractInfo = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & TGridComponentExtendedProps
 >(({ style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props }, ref) => {
-  const ticker = useVault.use.terminal().ticker
+  const ticker = useVault((state) => state.terminal.ticker)
   const data: TInstrument[] =
     useVault((state) => state?.data_public?.[TABLE_NAME_INSTRUMENT]?.[ticker]) || []
 

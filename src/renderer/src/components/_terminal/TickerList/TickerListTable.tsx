@@ -29,8 +29,8 @@ export function TickerListTable<TData, TValue>({
   columns,
   data
 }: TickerListTableProps<TData, TValue>): JSX.Element {
-  const ticker = useVault.use.terminal().ticker
-  const setTicker = useVault.use.setTicker()
+  const ticker = useVault((state) => state.terminal.ticker)
+  const setTicker = useVault((state) => state.setTicker)
   const [sorting, setSorting] = useState<SortingState>([
     {
       id: 'turnover24h',

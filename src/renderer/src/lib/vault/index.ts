@@ -5,12 +5,11 @@ import _ from 'lodash'
 import type { Layout } from 'react-grid-layout'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { createSelectors } from './createSelectors'
 import { defaultState } from './defaultState'
 
 type TVault = TVaultState & TVaultActions
 
-const vault = create<TVault>()(
+export const useVault = create<TVault>()(
   persist(
     (set, get) => ({
       ...defaultState,
@@ -94,5 +93,3 @@ const vault = create<TVault>()(
     }
   )
 )
-
-export const useVault = createSelectors(vault)

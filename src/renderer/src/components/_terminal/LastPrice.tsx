@@ -1,3 +1,4 @@
+import Spinner from '@/components/Spinner'
 import { TABLE_NAME_INSTRUMENT } from '@/lib/consts/terminal/bitmex'
 import { ICON_SIZE_MEDIUM } from '@/lib/consts/UI'
 import type { TGridComponentExtendedProps } from '@/lib/types/terminal/TGridComponentExtendedProps'
@@ -6,14 +7,13 @@ import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
 import React from 'react'
 import { LuArrowDown, LuArrowUp, LuCircle } from 'react-icons/lu'
-import Spinner from '@/components/Spinner'
 import GridComponentTitleBar from './GridComponentTitleBar'
 
 const LastPrice = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & TGridComponentExtendedProps
 >(({ style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props }, ref) => {
-  const ticker = useVault.use.terminal().ticker
+  const ticker = useVault((state) => state.terminal.ticker)
   const data = useVault((state) => state?.data_public?.[TABLE_NAME_INSTRUMENT]?.[ticker]) || []
 
   if (!data || data.length === 0)

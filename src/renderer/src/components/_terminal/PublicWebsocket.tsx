@@ -16,8 +16,8 @@ import useWebSocket from 'react-use-websocket'
 const bitmexClient = new BitMEXClient<TorderBook | TRecentTrades | TInstrument>()
 
 const PublicWebsocket = (): JSX.Element => {
-  const ticker = useVault.use.terminal().ticker
-  const setPublicData = useVault.use.setPublicData()
+  const ticker = useVault((state) => state.terminal.ticker)
+  const setPublicData = useVault((state) => state.setPublicData)
 
   const { sendJsonMessage } = useWebSocket(WS_BASE_URL + WS_ENDPOINT, {
     share: true,

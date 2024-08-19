@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import { LuArrowDown, LuArrowUp, LuMinus } from 'react-icons/lu'
 
 const TickerStrip = (): JSX.Element => {
-  const ticker = useVault.use.terminal().ticker
+  const ticker = useVault((state) => state.terminal.ticker)
   const data: TInstrument[] =
     useVault((state) => state?.data_public?.[TABLE_NAME_INSTRUMENT]?.[ticker]) || []
 

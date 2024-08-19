@@ -14,7 +14,7 @@ const OrderForm = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & TGridComponentExtendedProps
 >(({ style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props }, ref) => {
-  const APIKeys = useVault.use.APIKeys()
+  const APIKeys = useVault((state) => state.APIKeys)
   const [orderType, setOrderType] = useState('limit')
 
   if (APIKeys.length === 0) {

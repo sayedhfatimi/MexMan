@@ -14,12 +14,12 @@ const RecentTrades = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & TGridComponentExtendedProps
 >(({ style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props }, ref) => {
-  const ticker = useVault.use.terminal().ticker
+  const ticker = useVault((state) => state.terminal.ticker)
   const data: TRecentTrades[] =
     useVault((state) => state?.data_public?.[TABLE_NAME_RECENTTRADES]?.[ticker]) || []
 
-  const visibleTrades = useVault.use.terminal().visibleTrades
-  const setVisibleTrades = useVault.use.setVisibleTrades()
+  const visibleTrades = useVault((state) => state.terminal.visibleTrades)
+  const setVisibleTrades = useVault((state) => state.setVisibleTrades)
 
   if (!data || data.length === 0)
     return (

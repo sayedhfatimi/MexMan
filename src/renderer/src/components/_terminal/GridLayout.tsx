@@ -14,8 +14,8 @@ import PositionsOrders from './PositionsOrders'
 import RecentTrades from './RecentTrades'
 
 const GridLayout = (): JSX.Element => {
-  const terminalLayout = useVault.use.terminal().activeComponents
-  const setTerminalLayout = useVault.use.setTerminalLayout()
+  const terminalLayout = useVault((state) => state.terminal.activeComponents)
+  const setTerminalLayout = useVault((state) => state.setTerminalLayout)
 
   const ResponsiveGridLayout = useMemo(() => WidthProvider(Responsive), [])
 

@@ -32,7 +32,7 @@ const APIKeysForm = (): JSX.Element => {
   const [open, setOpen] = useState(false)
   const [isSubmitting, setSubmitting] = useState(false)
   const [show, setShow] = useState(false)
-  const addKey = useVault.use.addKey()
+  const addKey = useVault((state) => state.addKey)
 
   const form = useForm<z.infer<typeof createApiKeySchema>>({
     resolver: zodResolver(createApiKeySchema),

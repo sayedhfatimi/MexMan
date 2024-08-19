@@ -19,7 +19,7 @@ import WalletAccount from './WalletAccount'
 const Wallet = (): JSX.Element | null => {
   const { open, setOpen } = useKBShortcut(KB_SHORTCUT_WALLET)
   const data = useVault((state) => state?.data_private?.[TABLE_NAME_WALLET])
-  const APIKeys = useVault.use.APIKeys()
+  const APIKeys = useVault((state) => state.APIKeys)
 
   if (!data) return null
 

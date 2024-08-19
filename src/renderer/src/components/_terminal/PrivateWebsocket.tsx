@@ -16,8 +16,8 @@ import useWebSocket from 'react-use-websocket'
 const bitmexClient = new BitMEXClient<TWallet | TOrder | TPosition>()
 
 const PrivateWebsocket = (): JSX.Element => {
-  const APIKeys = useVault.use.APIKeys()
-  const setPrivateData = useVault.use.setPrivateData()
+  const APIKeys = useVault((state) => state.APIKeys)
+  const setPrivateData = useVault((state) => state.setPrivateData)
 
   const { sendJsonMessage } = useWebSocket(WS_BASE_URL + WS_MD_ENDPOINT, {
     share: true,

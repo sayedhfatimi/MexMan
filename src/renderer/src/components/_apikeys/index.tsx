@@ -13,7 +13,7 @@ import { APIKeysColumns } from './APIKeysTable/APIKeysColumns'
 
 const APIKeys = (): JSX.Element => {
   const { open, setOpen } = useKBShortcut(KB_SHORTCUT_APIKEYS_SETTINGS)
-  const APIKeys = useVault.use.APIKeys()
+  const APIKeys = useVault((state) => state.APIKeys)
 
   return (
     <Popover onOpenChange={setOpen} open={open} modal>
