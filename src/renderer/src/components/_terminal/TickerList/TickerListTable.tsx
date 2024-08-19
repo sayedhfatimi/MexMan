@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 import { InstrumentMap } from '@/lib/consts/terminal/bitmex'
 import { useVault } from '@/lib/vault'
 import type {
@@ -59,8 +60,8 @@ export function TickerListTable<TData, TValue>({
   })
 
   return (
-    <div className="flex h-[500px] flex-col font-mono">
-      <div className="relative flex items-center p-2">
+    <div className="flex h-[600px] flex-col space-y-2 font-mono">
+      <div className="relative mt-2 flex items-center px-2">
         <Label
           htmlFor="search"
           className="pointer-events-none absolute left-4 text-muted-foreground"
@@ -83,27 +84,37 @@ export function TickerListTable<TData, TValue>({
           <LuX className="transition-transform group-hover:scale-125" />
         </Button>
       </div>
-      <div className="flex flex-row items-center justify-between space-x-4 p-2">
-        <div className="flex flex-row items-center space-x-2">
+      <Separator />
+      <div className="flex flex-row items-center px-2">
+        <div className="flex flex-row items-center space-x-4">
           <div className="text-xs">Filter Options:</div>
-          {Object.keys(InstrumentMap).map((key) => (
-            <Button
-              key={key}
-              variant={
-                (table.getColumn('typ')?.getFilterValue() as string) === key ? 'default' : 'outline'
-              }
-              size="sm"
-              onClick={() =>
-                (table.getColumn('typ')?.getFilterValue() as string) === key
-                  ? table.getColumn('typ')?.setFilterValue('')
-                  : table.getColumn('typ')?.setFilterValue(key)
-              }
-            >
-              {InstrumentMap[key]}
-            </Button>
-          ))}
+          <div className="flex flex-col">
+            <div className="p-2 text-xs">Contract Type</div>
+            <div className="flex flex-row items-center space-x-2">
+              {Object.keys(InstrumentMap).map((key) => (
+                <Button
+                  key={key}
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    (table.getColumn('typ')?.getFilterValue() as string) === key
+                      ? table.getColumn('typ')?.setFilterValue('')
+                      : table.getColumn('typ')?.setFilterValue(key)
+                  }
+                  className={classNames({
+                    'font-bold': true,
+                    'bg-secondary-foreground text-white dark:bg-muted':
+                      (table.getColumn('typ')?.getFilterValue() as string) === key
+                  })}
+                >
+                  {InstrumentMap[key]}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
+      <Separator />
       <div className="flex-grow overflow-y-scroll">
         <table className="relative w-full table-fixed">
           <thead>

@@ -18,9 +18,6 @@ const Orderbook = React.forwardRef<
   React.HTMLAttributes<HTMLDivElement> & TGridComponentExtendedProps
 >(({ style, className, onMouseDown, onMouseUp, onTouchEnd, children, ...props }, ref) => {
   const ticker = useVault((state) => state.terminal.ticker)
-  const COMPONENT = useVault((state) =>
-    state.terminal.activeComponents.find((component) => component.i === 'Orderbook')
-  )
 
   const data = useVault((state) => state.data_public?.[TABLE_NAME_ORDERBOOK]?.[ticker]) || []
 
@@ -44,8 +41,8 @@ const Orderbook = React.forwardRef<
     )
 
   const ORDERBOOK_LEVEL_ROW_H = 16
-  const COMPONENT_W = COMPONENT!.w
-  const COMPONENT_H = COMPONENT!.h
+  const COMPONENT_W = props['data-grid'].w
+  const COMPONENT_H = props['data-grid'].h
 
   let n =
     (GRID_ROW_HEIGHT * COMPONENT_H + GRID_COMPONENT_MARGIN * (COMPONENT_H - 1)) /
