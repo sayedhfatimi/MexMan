@@ -9,8 +9,6 @@ export type TVaultActions = {
   removeKey: (payload: TAPIKey) => void
   setTicker: (payload: TVaultState['terminal']['ticker']) => void
   setVisibleTrades: (payload: TVaultState['terminal']['visibleTrades']) => void
-  setTerminalLayout: (payload: Layout[]) => void
-  resetTerminalLayout: (payload: Layout[]) => void
-  addComponent: (payload: Layout) => void
-  removeComponent: (payload: Layout) => void
+  setLayout: (payload: Layout[]) => void
+  toggleComponent: (payload: keyof TVaultState['terminal']['components']) => void
 }

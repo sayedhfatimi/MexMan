@@ -31,7 +31,7 @@ export const GridProps: ReactGridLayout.ResponsiveProps & ReactGridLayout.WidthP
   compactType: null
 }
 
-export const defaultTerminalLayout: Layout[] = [
+export const defaultLayout: Layout[] = [
   OrderForm,
   DepthChart,
   Chart,

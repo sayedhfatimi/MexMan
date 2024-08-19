@@ -43,39 +43,20 @@ export const useVault = create<TVault>()(
           ...get(),
           terminal: { ...get().terminal, visibleTrades: payload }
         }),
-      setTerminalLayout: (payload: Layout[]): void =>
+      setLayout: (payload: Layout[]): void =>
         set({
           ...get(),
-          terminal: { ...get().terminal, activeComponents: payload }
+          terminal: { ...get().terminal, layout: payload }
         }),
-      resetTerminalLayout: (payload: Layout[]): void =>
+      toggleComponent: (payload: keyof TVaultState['terminal']['components']): void =>
         set({
           ...get(),
           terminal: {
             ...get().terminal,
-            activeComponents: payload,
-            inactiveComponents: []
-          }
-        }),
-      addComponent: (payload: Layout): void =>
-        set({
-          ...get(),
-          terminal: {
-            ...get().terminal,
-            activeComponents: [...get().terminal.activeComponents, payload],
-            inactiveComponents: _.reject(
-              get().terminal.inactiveComponents,
-              (o) => o.i === payload.i
-            )
-          }
-        }),
-      removeComponent: (payload: Layout): void =>
-        set({
-          ...get(),
-          terminal: {
-            ...get().terminal,
-            activeComponents: _.reject(get().terminal.activeComponents, (o) => o.i === payload.i),
-            inactiveComponents: [...get().terminal.inactiveComponents, payload]
+            components: {
+              ...get().terminal.components,
+              [payload]: !get().terminal.components[payload]
+            }
           }
         })
     }),
@@ -83,12 +64,7 @@ export const useVault = create<TVault>()(
       name: 'vault',
       partialize: (state) => ({
         APIKeys: state.APIKeys,
-        terminal: _.pick(state.terminal, [
-          'ticker',
-          'visibleTrades',
-          'activeComponents',
-          'inactiveComponents'
-        ])
+        terminal: _.pick(state.terminal, ['ticker', 'visibleTrades', 'layout', 'components'])
       })
     }
   )

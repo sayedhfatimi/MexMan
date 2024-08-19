@@ -1,4 +1,4 @@
-import { defaultTerminalLayout } from '@/lib/consts/terminal/gridConfig'
+import { defaultLayout } from '@/lib/consts/terminal/gridConfig'
 import { DEFAULT_TICKER, DEFAULT_VISIBLE_TRADES } from '@/lib/consts/UI'
 import type { TVaultState } from '@/lib/types/vault/TVaultState'
 
@@ -9,7 +9,16 @@ export const defaultState: TVaultState = {
   terminal: {
     ticker: DEFAULT_TICKER,
     visibleTrades: DEFAULT_VISIBLE_TRADES,
-    activeComponents: defaultTerminalLayout as TVaultState['terminal']['activeComponents'],
-    inactiveComponents: [] as TVaultState['terminal']['inactiveComponents']
+    layout: defaultLayout as TVaultState['terminal']['layout'],
+    components: {
+      Chart: true,
+      Orderbook: true,
+      'Order Form': true,
+      'Recent Trades': true,
+      'Positions & Orders': true,
+      'Contract Information': true,
+      'Last Price': true,
+      'Depth Chart': true
+    } as TVaultState['terminal']['components']
   } as TVaultState['terminal']
 }

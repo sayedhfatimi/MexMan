@@ -12,18 +12,18 @@ import {
   ICON_SIZE_SMALL,
   KB_SHORTCUT_TERMINAL_SETTINGS
 } from '@/lib/consts/UI'
-import { defaultTerminalLayout } from '@/lib/consts/terminal/gridConfig'
+import { defaultLayout } from '@/lib/consts/terminal/gridConfig'
 import useKBShortcut from '@/lib/hooks/useKBShortcuts'
+import type { TVaultState } from '@/lib/types/vault/TVaultState'
 import { useVault } from '@/lib/vault'
 import { LuEye, LuEyeOff, LuSettings } from 'react-icons/lu'
 import { MdLockReset } from 'react-icons/md'
 
 const TerminalSettings = (): JSX.Element => {
-  const activeComponents = useVault((state) => state.terminal.activeComponents)
+  const setLayout = useVault((state) => state.setLayout)
+  const components = useVault((state) => state.terminal.components)
+  const toggleComponent = useVault((state) => state.toggleComponent)
   const ticker = useVault((state) => state.terminal.ticker)
-  const removeComponent = useVault((state) => state.removeComponent)
-  const addComponent = useVault((state) => state.addComponent)
-  const resetTerminalLayout = useVault((state) => state.resetTerminalLayout)
 
   const { open, setOpen } = useKBShortcut(KB_SHORTCUT_TERMINAL_SETTINGS)
 
@@ -52,7 +52,7 @@ const TerminalSettings = (): JSX.Element => {
               variant="outline"
               size="sm"
               className="group space-x-2"
-              onClick={() => resetTerminalLayout(defaultTerminalLayout)}
+              onClick={() => setLayout(defaultLayout)}
             >
               <MdLockReset
                 size={ICON_SIZE_SMALL}
@@ -72,7 +72,7 @@ const TerminalSettings = (): JSX.Element => {
               </div>
               <ConnectionStatus />
             </div>
-            {defaultTerminalLayout.map((component) => (
+            {defaultLayout.map((component) => (
               <div
                 key={component.i}
                 className="group flex flex-row items-center justify-between px-2 py-2 transition-colors hover:bg-secondary"
@@ -88,14 +88,10 @@ const TerminalSettings = (): JSX.Element => {
                   <LuEyeOff size={ICON_SIZE_SMALL} />
                   <Switch
                     id={component.i}
-                    checked={activeComponents.some((item) => item.i === component.i)}
-                    onCheckedChange={() => {
-                      if (activeComponents.some((item) => item.i === component.i)) {
-                        removeComponent(component)
-                      } else {
-                        addComponent(component)
-                      }
-                    }}
+                    checked={components[component.i]}
+                    onCheckedChange={() =>
+                      toggleComponent(component.i as keyof TVaultState['terminal']['components'])
+                    }
                   />
                   <LuEye size={ICON_SIZE_SMALL} />
                 </div>

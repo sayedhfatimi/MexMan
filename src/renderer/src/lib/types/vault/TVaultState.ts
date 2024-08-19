@@ -9,7 +9,16 @@ export type TVaultState = {
   terminal: {
     ticker: string
     visibleTrades: number
-    activeComponents: Layout[]
-    inactiveComponents: Layout[]
+    layout: Layout[]
+    components: {
+      Chart: boolean
+      Orderbook: boolean
+      'Order Form': boolean
+      'Recent Trades': boolean
+      'Positions & Orders': boolean
+      'Contract Information': boolean
+      'Last Price': boolean
+      'Depth Chart': boolean
+    }
   }
 }

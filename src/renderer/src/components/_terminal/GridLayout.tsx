@@ -1,6 +1,7 @@
 import { GridProps } from '@/lib/consts/terminal/gridConfig'
 import { useVault } from '@/lib/vault'
-import { useMemo } from 'react'
+import _ from 'lodash'
+import { useCallback, useMemo } from 'react'
 import { Responsive, WidthProvider } from 'react-grid-layout'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
@@ -14,8 +15,18 @@ import PositionsOrders from './PositionsOrders'
 import RecentTrades from './RecentTrades'
 
 const GridLayout = (): JSX.Element => {
-  const terminalLayout = useVault((state) => state.terminal.activeComponents)
-  const setTerminalLayout = useVault((state) => state.setTerminalLayout)
+  const layout = useVault((state) => state.terminal.layout)
+  const components = useVault((state) => state.terminal.components)
+  const setLayout = useCallback(
+    _.throttle(
+      useVault((state) => state.setLayout),
+      200
+    ),
+    []
+  )
+
+  console.log(layout)
+  console.log(components)
 
   const ResponsiveGridLayout = useMemo(() => WidthProvider(Responsive), [])
 
@@ -31,30 +42,29 @@ const GridLayout = (): JSX.Element => {
       { label: 'Depth Chart', node: DepthChart }
     ]
 
-    return terminalLayout.map((gridItem) =>
-      terminalComponents
-        .filter((component) => component.label === gridItem.i)
-        .map((component) => (
+    return terminalComponents.map(
+      (component) =>
+        components[component.label] && (
           <component.node
-            key={gridItem.i}
+            key={component.label}
             className="flex select-none flex-col overflow-clip border bg-white shadow-md dark:bg-slate-900"
-            data-grid={gridItem}
+            data-grid={layout.find((item) => item.i === component.label)!}
           />
-        ))
+        )
     )
-  }, [terminalLayout])
+  }, [layout, components])
 
   return (
     <>
       <ResponsiveGridLayout
         layouts={{
-          md: terminalLayout
+          md: layout
         }}
-        onLayoutChange={(layout) => {
-          setTerminalLayout(layout)
+        onDrag={(layout) => {
+          setLayout(layout)
         }}
         onResize={(layout) => {
-          setTerminalLayout(layout)
+          setLayout(layout)
         }}
         {...GridProps}
       >
