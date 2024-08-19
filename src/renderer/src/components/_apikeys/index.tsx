@@ -7,7 +7,7 @@ import { ICON_SIZE_LARGE, ICON_SIZE_SMALL, KB_SHORTCUT_APIKEYS_SETTINGS } from '
 import useKBShortcut from '@/lib/hooks/useKBShortcuts'
 import { useVault } from '@/lib/vault'
 import { LuKeyRound } from 'react-icons/lu'
-import ApiKeysForm from './ApiKeysForm'
+import APIKeysForm from './_actions/APIKeysCreateForm'
 import { APIKeysDataTable } from './APIKeysTable'
 import { APIKeysColumns } from './APIKeysTable/APIKeysColumns'
 
@@ -39,7 +39,7 @@ const APIKeys = (): JSX.Element => {
             </div>
           </header>
 
-          <ApiKeysForm />
+          <APIKeysForm />
         </div>
 
         <Separator />

@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { TABLE_NAME_ORDER } from '@/lib/consts/terminal/bitmex'
 import type { TOrder } from '@/lib/types/bitmex/TOrder'
 import type { TAPIKey } from '@/lib/types/vault/TAPIKey'
@@ -5,7 +6,6 @@ import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
-import { Button } from '../../ui/button'
 
 type TCancelOrderInput = {
   orderID: TOrder['orderID']

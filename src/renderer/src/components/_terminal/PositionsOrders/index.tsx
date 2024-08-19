@@ -1,10 +1,10 @@
+import GridComponentTitleBar from '@/components/_terminal/GridComponentTitleBar'
+import NoAPIKeys from '@/components/_terminal/NoAPIKeys'
 import type { TGridComponentExtendedProps } from '@/lib/types/terminal/TGridComponentExtendedProps'
 import { cn } from '@/lib/utils'
 import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
 import React, { useState } from 'react'
-import GridComponentTitleBar from '../GridComponentTitleBar'
-import NoAPIKeys from '../NoAPIKeys'
 import Orders from './Orders'
 import Positions from './Positions'
 

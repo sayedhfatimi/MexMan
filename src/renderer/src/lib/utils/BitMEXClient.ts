@@ -1,7 +1,7 @@
+import type { TBitMEXClient_DATA } from '@/lib/types/bitmex/TBitMEXClient_DATA'
+import type { TBitMEXClient_KEYS } from '@/lib/types/bitmex/TBitMEXClient_KEYS'
 import type { TWebSocketResponse } from '@/lib/types/bitmex/TWebSocketResponse'
 import _ from 'lodash'
-import type { TBitMEXClient_DATA } from '../types/bitmex/TBitMEXClient_DATA'
-import type { TBitMEXClient_KEYS } from '../types/bitmex/TBitMEXClient_KEYS'
 
 class BitMEXClient<T> {
   // private properties

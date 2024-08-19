@@ -1,8 +1,8 @@
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { symbolSignificantFiguresMap } from '@/lib/consts/terminal/bitmex'
 import { ICON_SIZE_SMALL } from '@/lib/consts/UI'
 import type { TWallet } from '@/lib/types/bitmex/TWallet'
 import { LuChevronDown } from 'react-icons/lu'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../ui/collapsible'
 
 const WalletAccount = ({ data }: { data: TWallet[] }): JSX.Element => {
   return (

@@ -16,7 +16,7 @@ import { useVault } from '@/lib/vault'
 import { useState } from 'react'
 import { LuBomb, LuTrash2 } from 'react-icons/lu'
 
-const ApiKeysDeleteButton = ({ APIKeyObj }: { APIKeyObj: TAPIKey }): JSX.Element => {
+const APIKeysDeleteButton = ({ APIKeyObj }: { APIKeyObj: TAPIKey }): JSX.Element => {
   const [isDeleting, setDeleting] = useState(false)
   const removeKey = useVault.use.removeKey()
 
@@ -57,4 +57,4 @@ const ApiKeysDeleteButton = ({ APIKeyObj }: { APIKeyObj: TAPIKey }): JSX.Element
   )
 }
 
-export default ApiKeysDeleteButton
+export default APIKeysDeleteButton

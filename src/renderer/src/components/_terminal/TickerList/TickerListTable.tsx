@@ -1,8 +1,14 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { InstrumentMap } from '@/lib/consts/terminal/bitmex'
 import { useVault } from '@/lib/vault'
-import type { ColumnDef, ColumnFiltersState, SortingState } from '@tanstack/react-table'
+import type {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState
+} from '@tanstack/react-table'
 import {
   flexRender,
   getCoreRowModel,
@@ -32,6 +38,9 @@ export function TickerListTable<TData, TValue>({
     }
   ])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
+    typ: false
+  })
 
   const table = useReactTable({
     data,
@@ -41,15 +50,17 @@ export function TickerListTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
-      columnFilters
+      columnFilters,
+      columnVisibility
     }
   })
 
   return (
     <div className="flex h-[500px] flex-col font-mono">
-      <div className="relative flex items-center px-2 py-4">
+      <div className="relative flex items-center p-2">
         <Label
           htmlFor="search"
           className="pointer-events-none absolute left-4 text-muted-foreground"
@@ -71,6 +82,27 @@ export function TickerListTable<TData, TValue>({
         >
           <LuX className="transition-transform group-hover:scale-125" />
         </Button>
+      </div>
+      <div className="flex flex-row items-center justify-between space-x-4 p-2">
+        <div className="flex flex-row items-center space-x-2">
+          <div className="text-xs">Filter Options:</div>
+          {Object.keys(InstrumentMap).map((key) => (
+            <Button
+              key={key}
+              variant={
+                (table.getColumn('typ')?.getFilterValue() as string) === key ? 'default' : 'outline'
+              }
+              size="sm"
+              onClick={() =>
+                (table.getColumn('typ')?.getFilterValue() as string) === key
+                  ? table.getColumn('typ')?.setFilterValue('')
+                  : table.getColumn('typ')?.setFilterValue(key)
+              }
+            >
+              {InstrumentMap[key]}
+            </Button>
+          ))}
+        </div>
       </div>
       <div className="flex-grow overflow-y-scroll">
         <table className="relative w-full table-fixed">

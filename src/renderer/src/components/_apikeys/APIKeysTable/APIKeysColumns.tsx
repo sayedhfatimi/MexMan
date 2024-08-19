@@ -1,9 +1,9 @@
+import APIKeysDeleteButton from '@/components/_apikeys/_actions/APIKeysDeleteButton'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import type { TAPIKey } from '@/lib/types/vault/TAPIKey'
 import type { ColumnDef } from '@tanstack/react-table'
 import { LuChevronDown, LuChevronUp, LuMoreVertical } from 'react-icons/lu'
-import ApiKeysDeleteButton from '../ApiKeysDeleteButton'
 
 export const APIKeysColumns: ColumnDef<TAPIKey>[] = [
   {
@@ -65,7 +65,7 @@ export const APIKeysColumns: ColumnDef<TAPIKey>[] = [
     ),
     cell: ({ row }) => (
       <div className="text-right">
-        <ApiKeysDeleteButton APIKeyObj={row.original} />
+        <APIKeysDeleteButton APIKeyObj={row.original} />
       </div>
     )
   }

@@ -32,7 +32,7 @@ export const TickerListColumns: ColumnDef<TInstrument>[] = [
           <span className="font-bold">{row.getValue('symbol')}</span>
         </div>
         <div className="flex flex-col items-end text-xs text-muted-foreground group-hover:text-black dark:group-hover:text-white">
-          {InstrumentMap[row.original.typ]}
+          {InstrumentMap[row.getValue<TInstrument['typ']>('typ')]}
         </div>
       </div>
     )
@@ -123,5 +123,9 @@ export const TickerListColumns: ColumnDef<TInstrument>[] = [
         }).format(row.getValue('turnover24h'))}
       </div>
     )
+  },
+  {
+    accessorKey: 'typ',
+    enableHiding: true
   }
 ]

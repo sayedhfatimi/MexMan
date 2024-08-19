@@ -1,10 +1,10 @@
+import { Button } from '@/components/ui/button'
 import { TABLE_NAME_POSITION } from '@/lib/consts/terminal/bitmex'
 import type { TPosition } from '@/lib/types/bitmex/TPosition'
 import type { TAPIKey } from '@/lib/types/vault/TAPIKey'
 import { numberParser } from '@/lib/utils'
 import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
-import { Button } from '../../ui/button'
 
 const PositionsRows = ({ APIKey }: { APIKey: TAPIKey }): JSX.Element => {
   const data: TPosition[] =

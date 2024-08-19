@@ -1,3 +1,4 @@
+import GridComponentTitleBar from '@/components/_terminal/GridComponentTitleBar'
 import Spinner from '@/components/Spinner'
 import { Label } from '@/components/ui/label'
 import { TABLE_NAME_RECENTTRADES } from '@/lib/consts/terminal/bitmex'
@@ -6,7 +7,6 @@ import type { TGridComponentExtendedProps } from '@/lib/types/terminal/TGridComp
 import { cn } from '@/lib/utils'
 import { useVault } from '@/lib/vault'
 import React from 'react'
-import GridComponentTitleBar from '../GridComponentTitleBar'
 import RecentTradesHeader from './RecentTradesHeader'
 import RecentTradesRow from './RecentTradesRow'
 

@@ -28,7 +28,7 @@ import { useForm } from 'react-hook-form'
 import { LuEye, LuEyeOff, LuPlus, LuRefreshCw } from 'react-icons/lu'
 import type { z } from 'zod'
 
-const ApiKeysForm = (): JSX.Element => {
+const APIKeysForm = (): JSX.Element => {
   const [open, setOpen] = useState(false)
   const [isSubmitting, setSubmitting] = useState(false)
   const [show, setShow] = useState(false)
@@ -172,4 +172,4 @@ const ApiKeysForm = (): JSX.Element => {
   )
 }
 
-export default ApiKeysForm
+export default APIKeysForm
