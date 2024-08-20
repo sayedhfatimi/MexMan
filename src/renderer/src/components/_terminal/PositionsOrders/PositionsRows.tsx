@@ -5,10 +5,31 @@ import type { TAPIKey } from '@/lib/types/vault/TAPIKey'
 import { numberParser } from '@/lib/utils'
 import { useVault } from '@/lib/vault'
 import classNames from 'classnames'
+import type { SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+
+type TClosePositionInput = {
+  symbol: TPosition['symbol']
+}
 
 const PositionsRows = ({ APIKey }: { APIKey: TAPIKey }): JSX.Element => {
   const data: TPosition[] =
     useVault((state) => state?.data_private?.[TABLE_NAME_POSITION]?.[APIKey.id]) || []
+
+  const { register, handleSubmit } = useForm<TClosePositionInput>()
+
+  const handleClosePosition: SubmitHandler<TClosePositionInput> = async (data) => {
+    if (APIKey) {
+      await window.electron.ipcRenderer.invoke(
+        'bitmex:authRESTRequest',
+        'POST',
+        '/api/v1/order',
+        APIKey.key,
+        APIKey.secret,
+        JSON.stringify({ symbol: data.symbol, execInst: 'Close' })
+      )
+    }
+  }
 
   if (!data || data.length === 0) {
     return (
@@ -99,10 +120,10 @@ const PositionsRows = ({ APIKey }: { APIKey: TAPIKey }): JSX.Element => {
             {numberParser(position.rebalancedPnl / 10 ** 6)}
           </td>
           <td className="text-right">
-            <form>
-              <input type="hidden" value={position.symbol} name="symbol" />
+            <form onSubmit={handleSubmit(handleClosePosition)}>
+              <input type="hidden" value={position.symbol} {...register('symbol')} />
               <Button variant="outline" size="sm" type="submit" className="h-6 rounded-none px-1">
-                Cancel
+                Market Close
               </Button>
             </form>
           </td>

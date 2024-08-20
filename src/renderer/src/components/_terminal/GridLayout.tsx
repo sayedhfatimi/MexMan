@@ -1,4 +1,4 @@
-import { GridProps } from '@/lib/consts/terminal/gridConfig'
+import { gridProps } from '@/lib/consts/terminal/gridConfig'
 import { useVault } from '@/lib/vault'
 import _ from 'lodash'
 import { useCallback, useMemo } from 'react'
@@ -24,9 +24,6 @@ const GridLayout = (): JSX.Element => {
     ),
     []
   )
-
-  console.log(layout)
-  console.log(components)
 
   const ResponsiveGridLayout = useMemo(() => WidthProvider(Responsive), [])
 
@@ -66,7 +63,7 @@ const GridLayout = (): JSX.Element => {
         onResize={(layout) => {
           setLayout(layout)
         }}
-        {...GridProps}
+        {...gridProps}
       >
         {gridChildren}
       </ResponsiveGridLayout>

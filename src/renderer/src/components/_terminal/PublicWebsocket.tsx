@@ -8,7 +8,7 @@ import {
 import type { TInstrument } from '@/lib/types/bitmex/TInstrument'
 import type { TorderBook } from '@/lib/types/bitmex/TorderBook'
 import type { TRecentTrades } from '@/lib/types/bitmex/TRecentTrades'
-import BitMEXClient from '@/lib/utils/BitMEXClient'
+import { BitMEXClient } from '@/lib/utils'
 import { useVault } from '@/lib/vault'
 import { useEffect } from 'react'
 import useWebSocket from 'react-use-websocket'

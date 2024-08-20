@@ -9,7 +9,7 @@ import {
 import type { TOrder } from '@/lib/types/bitmex/TOrder'
 import type { TPosition } from '@/lib/types/bitmex/TPosition'
 import type { TWallet } from '@/lib/types/bitmex/TWallet'
-import BitMEXClient from '@/lib/utils/BitMEXClient'
+import { BitMEXClient } from '@/lib/utils'
 import { useVault } from '@/lib/vault'
 import useWebSocket from 'react-use-websocket'
 

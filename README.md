@@ -30,6 +30,8 @@
 - [x] Add Wallet
 - [x] Build UI to view balance information across all API Keys
 - [x] Build UI to view positions across all API Keys
+- [x] Implement Position closing logic
+- [x] Improve performance in react render process when dragging/resizing components
 
 ### TODO
 
@@ -38,9 +40,7 @@
 - [ ] Add Notifications
 - [ ] Build Depth Chart
 - [ ] Apply for and implement TradingView for chart
-- [ ] Implement Position closing logic
 - [ ] Auto Build binaries in release for Windows/Mac/Linux
-- [ ] Improve performance in react render process when dragging/resizing components
 
 ## Development Setup
 

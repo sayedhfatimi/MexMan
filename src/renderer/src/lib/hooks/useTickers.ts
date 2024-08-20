@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query'
 import { REACT_QUERY_STALE_TIME } from '@/lib/consts/ReactQuery'
+import type { UseQueryResult } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
+import type { TInstrument } from '../types/bitmex/TInstrument'
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function useTickers() {
+export default function useTickers(): UseQueryResult<TInstrument[], Error> {
   return useQuery({
     queryKey: ['tickers'],
     queryFn: async () =>

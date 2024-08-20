@@ -5,7 +5,7 @@ import _ from 'lodash'
 
 class BitMEXClient<T> {
   // private properties
-  private data_public: TBitMEXClient_DATA = {}
+  private _DATA: TBitMEXClient_DATA = {}
   private _KEYS: TBitMEXClient_KEYS = {}
   private STORE_MAX_LENGTH = 10_000
 
@@ -40,13 +40,13 @@ class BitMEXClient<T> {
     key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    if (!this.data_public[table]) this.data_public[table] = {}
+    if (!this._DATA[table]) this._DATA[table] = {}
     const wsData = wsResponse.data || []
 
-    this.data_public[table][key] = wsData
+    this._DATA[table][key] = wsData
     this._KEYS[table] = wsResponse.keys!
 
-    return this.data_public
+    return this._DATA
   }
 
   private _insert(
@@ -54,7 +54,7 @@ class BitMEXClient<T> {
     key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    const store = this.data_public[table][key]
+    const store = this._DATA[table][key]
 
     const mutableStore = [...store, ...wsResponse.data] as T[]
 
@@ -70,7 +70,7 @@ class BitMEXClient<T> {
     key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    const store = this.data_public[table][key]
+    const store = this._DATA[table][key]
 
     const mutableStore = [...store] as T[]
 
@@ -94,7 +94,7 @@ class BitMEXClient<T> {
     key: string,
     wsResponse: TWebSocketResponse<T>
   ): TBitMEXClient_DATA {
-    const store = this.data_public[table][key]
+    const store = this._DATA[table][key]
 
     let mutableStore = [...store] as T[]
 
@@ -113,12 +113,12 @@ class BitMEXClient<T> {
   // deltaParser Helper Functions
 
   private replaceStore(table: string, key: string, newData: T[]): TBitMEXClient_DATA {
-    if (this.data_public[table][key] && !Array.isArray(this.data_public[table][key])) {
-      this.data_public[table][key] = newData[0] as T[]
+    if (this._DATA[table][key] && !Array.isArray(this._DATA[table][key])) {
+      this._DATA[table][key] = newData[0] as T[]
     } else {
-      this.data_public[table][key] = newData
+      this._DATA[table][key] = newData
     }
-    return this.data_public
+    return this._DATA
   }
 
   private updateItem(item: T, newData: T): T {

@@ -1,8 +1,9 @@
 import { REACT_QUERY_STALE_TIME } from '@/lib/consts/ReactQuery'
+import type { UseQueryResult } from '@tanstack/react-query'
 import { useQuery } from '@tanstack/react-query'
+import type { TInstrumentUSDVolumes } from '../types/bitmex/TInstrumentUSDVolumes'
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function useTickerVolumes() {
+export default function useTickerVolumes(): UseQueryResult<TInstrumentUSDVolumes[], Error> {
   return useQuery({
     queryKey: ['tickers', 'volumes'],
     queryFn: async () =>
