@@ -181,7 +181,10 @@ export function TickerListTable<TData, TValue>({
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length - 2} className="h-24 text-center">
+                <td
+                  colSpan={columns.length - Object.keys(columnVisibility).length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </td>
               </tr>
