@@ -40,7 +40,8 @@ export function TickerListTable<TData, TValue>({
   ])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
-    typ: false
+    typ: false,
+    settlCurrency: false
   })
 
   const table = useReactTable({
@@ -60,7 +61,7 @@ export function TickerListTable<TData, TValue>({
   })
 
   return (
-    <div className="flex h-[600px] flex-col space-y-2 font-mono">
+    <div className="flex h-[600px] flex-col space-y-2">
       <div className="relative mt-2 flex items-center px-2">
         <Label
           htmlFor="search"
@@ -112,6 +113,30 @@ export function TickerListTable<TData, TValue>({
               ))}
             </div>
           </div>
+          <div className="flex flex-col">
+            <div className="p-2 text-xs">Margin Type</div>
+            <div className="flex flex-row items-center space-x-2">
+              {['XBt', 'USDt'].map((key) => (
+                <Button
+                  key={key}
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    (table.getColumn('settlCurrency')?.getFilterValue() as string) === key
+                      ? table.getColumn('settlCurrency')?.setFilterValue('')
+                      : table.getColumn('settlCurrency')?.setFilterValue(key)
+                  }
+                  className={classNames({
+                    'font-bold': true,
+                    'bg-secondary-foreground text-white dark:bg-muted':
+                      (table.getColumn('settlCurrency')?.getFilterValue() as string) === key
+                  })}
+                >
+                  {key}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <Separator />
@@ -156,7 +181,7 @@ export function TickerListTable<TData, TValue>({
               ))
             ) : (
               <tr>
-                <td colSpan={columns.length} className="h-24 text-center">
+                <td colSpan={columns.length - 2} className="h-24 text-center">
                   No results.
                 </td>
               </tr>

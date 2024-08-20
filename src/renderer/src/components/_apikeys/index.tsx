@@ -26,7 +26,7 @@ const APIKeys = (): JSX.Element => {
           <KBShortcutLabel char={KB_SHORTCUT_APIKEYS_SETTINGS} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[900px] select-none space-y-2 font-mono">
+      <PopoverContent className="w-[900px] select-none space-y-2">
         <div className="flex items-center justify-between">
           <header className="group flex flex-row items-center space-x-4">
             <LuKeyRound

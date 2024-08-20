@@ -38,7 +38,7 @@ const TerminalSettings = (): JSX.Element => {
           <KBShortcutLabel char={KB_SHORTCUT_TERMINAL_SETTINGS} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[500px] select-none font-mono text-sm">
+      <PopoverContent className="w-[500px] select-none text-sm">
         <div className="flex flex-col space-y-2">
           <div className="flex items-center justify-between">
             <header className="group flex flex-row items-center space-x-4">

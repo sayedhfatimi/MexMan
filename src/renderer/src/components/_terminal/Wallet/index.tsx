@@ -31,7 +31,7 @@ const Wallet = (): JSX.Element | null => {
           <KBShortcutLabel char={KB_SHORTCUT_WALLET} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[400px] select-none font-mono text-sm">
+      <PopoverContent className="w-[400px] select-none text-sm">
         <div className="flex flex-col space-y-2">
           <header className="group flex flex-row items-center space-x-4">
             <LuWallet size={ICON_SIZE_LARGE} className="group-hover:animate-bounce" />

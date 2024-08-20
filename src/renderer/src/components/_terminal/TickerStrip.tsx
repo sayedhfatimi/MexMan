@@ -24,7 +24,7 @@ const TickerStrip = (): JSX.Element => {
       {data.map((ticker) => (
         <div
           key={ticker.symbol}
-          className="flex select-none flex-row items-center space-x-2 divide-x-2 font-mono"
+          className="flex select-none flex-row items-center space-x-2 divide-x-2"
         >
           <div className="ticker-strip-item-hover flex flex-row items-center gap-x-2 px-2 py-1">
             <div

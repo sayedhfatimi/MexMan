@@ -4,7 +4,7 @@ import { LuX } from 'react-icons/lu'
 
 const AppMenu = (): JSX.Element => {
   return (
-    <div className="titlebar top-0 flex h-8 w-full flex-row items-center justify-between border-t bg-secondary/50 px-2 py-1 font-mono backdrop-blur-sm">
+    <div className="titlebar top-0 flex h-8 w-full flex-row items-center justify-between border-t bg-secondary/50 px-2 py-1 backdrop-blur-sm">
       <div className="flex items-center space-x-2">
         <div className="logo size-6" />
         <span>MexMan</span>

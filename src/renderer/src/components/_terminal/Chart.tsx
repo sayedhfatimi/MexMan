@@ -10,7 +10,7 @@ const Chart = React.forwardRef<
   return (
     <div
       style={{ ...style }}
-      className={cn('font-mono text-xs', className)}
+      className={cn('text-xs', className)}
       ref={ref}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}

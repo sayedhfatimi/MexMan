@@ -25,7 +25,7 @@ const Orderbook = React.forwardRef<
     return (
       <div
         style={{ ...style }}
-        className={cn('font-mono text-xs', className)}
+        className={cn('text-xs', className)}
         ref={ref}
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
@@ -70,7 +70,7 @@ const Orderbook = React.forwardRef<
   return (
     <div
       style={{ ...style }}
-      className={cn('font-mono text-xs', className)}
+      className={cn('text-xs', className)}
       ref={ref}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
@@ -81,7 +81,7 @@ const Orderbook = React.forwardRef<
       <GridComponentTitleBar item={props['data-grid']} />
       <div
         className={classNames({
-          'flex overflow-clip font-mono text-xs font-thin': true,
+          'flex overflow-clip text-xs font-thin': true,
           'flex-row items-start justify-evenly': COMPONENT_W >= GRID_BREAK_W,
           'flex-col-reverse justify-end': COMPONENT_W < GRID_BREAK_W
         })}

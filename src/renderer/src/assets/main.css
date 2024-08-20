@@ -79,7 +79,7 @@
   }
 
   body {
-    @apply dark:dark-bg light-bg bg-background bg-fixed text-foreground;
+    @apply dark:dark-bg light-bg bg-background bg-fixed font-mono text-foreground;
   }
 
   .logo {
