@@ -41,7 +41,8 @@ export function TickerListTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({
     typ: false,
-    settlCurrency: false
+    settlCurrency: false,
+    quoteCurrency: false
   })
 
   const table = useReactTable({
@@ -87,7 +88,7 @@ export function TickerListTable<TData, TValue>({
       </div>
       <Separator />
       <div className="flex flex-row items-center px-2">
-        <div className="flex flex-row items-center space-x-4">
+        <div className="flex flex-row items-center space-x-6">
           <div className="text-xs">Filter Options:</div>
           <div className="flex flex-col">
             <div className="p-2 text-xs">Contract Type</div>
@@ -130,6 +131,30 @@ export function TickerListTable<TData, TValue>({
                     'font-bold': true,
                     'bg-secondary-foreground text-white dark:bg-muted':
                       (table.getColumn('settlCurrency')?.getFilterValue() as string) === key
+                  })}
+                >
+                  {key}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <div className="p-2 text-xs">Quote Currency Type</div>
+            <div className="flex flex-row items-center space-x-2">
+              {['XBT', 'ETH', 'USDT', 'USD', 'EUR'].map((key) => (
+                <Button
+                  key={key}
+                  variant="outline"
+                  size="sm"
+                  onClick={() =>
+                    (table.getColumn('quoteCurrency')?.getFilterValue() as string) === key
+                      ? table.getColumn('quoteCurrency')?.setFilterValue('')
+                      : table.getColumn('quoteCurrency')?.setFilterValue(key)
+                  }
+                  className={classNames({
+                    'font-bold': true,
+                    'bg-secondary-foreground text-white dark:bg-muted':
+                      (table.getColumn('quoteCurrency')?.getFilterValue() as string) === key
                   })}
                 >
                   {key}

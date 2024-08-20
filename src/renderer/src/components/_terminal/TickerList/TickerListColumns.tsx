@@ -131,5 +131,9 @@ export const TickerListColumns: ColumnDef<TInstrument>[] = [
   {
     accessorKey: 'settlCurrency',
     enableHiding: true
+  },
+  {
+    accessorKey: 'quoteCurrency',
+    enableHiding: true
   }
 ]
