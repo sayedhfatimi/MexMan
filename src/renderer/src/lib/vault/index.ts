@@ -6,6 +6,7 @@ import type { Layout } from 'react-grid-layout'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { defaultState } from './defaultState'
+import { defaultLayout } from '../consts/terminal/gridConfig'
 
 type TVault = TVaultState & TVaultActions
 
@@ -46,17 +47,32 @@ export const useVault = create<TVault>()(
       setLayout: (payload: Layout[]): void =>
         set({
           ...get(),
-          terminal: { ...get().terminal, layout: payload }
+          terminal: { ...get().terminal, activeComponents: payload }
         }),
-      toggleComponent: (payload: keyof TVaultState['terminal']['components']): void =>
+      resetLayout: (): void =>
+        set({
+          ...get(),
+          terminal: { ...get().terminal, activeComponents: defaultLayout, inactiveComponents: [] }
+        }),
+      addComponent: (payload: Layout): void =>
         set({
           ...get(),
           terminal: {
             ...get().terminal,
-            components: {
-              ...get().terminal.components,
-              [payload]: !get().terminal.components[payload]
-            }
+            activeComponents: [...get().terminal.activeComponents, payload],
+            inactiveComponents: _.reject(
+              get().terminal.inactiveComponents,
+              (o) => o.i === payload.i
+            )
+          }
+        }),
+      removeComponent: (payload: Layout): void =>
+        set({
+          ...get(),
+          terminal: {
+            ...get().terminal,
+            activeComponents: _.reject(get().terminal.activeComponents, (o) => o.i === payload.i),
+            inactiveComponents: [...get().terminal.inactiveComponents, payload]
           }
         })
     }),
@@ -64,7 +80,12 @@ export const useVault = create<TVault>()(
       name: 'vault',
       partialize: (state) => ({
         APIKeys: state.APIKeys,
-        terminal: _.pick(state.terminal, ['ticker', 'visibleTrades', 'layout', 'components'])
+        terminal: _.pick(state.terminal, [
+          'ticker',
+          'visibleTrades',
+          'activeComponents',
+          'inactiveComponents'
+        ])
       })
     }
   )

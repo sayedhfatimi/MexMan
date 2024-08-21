@@ -14,16 +14,17 @@ import {
 } from '@/lib/consts/UI'
 import { defaultLayout } from '@/lib/consts/terminal/gridConfig'
 import useKBShortcut from '@/lib/hooks/useKBShortcuts'
-import type { TVaultState } from '@/lib/types/vault/TVaultState'
 import { useVault } from '@/lib/vault'
 import { LuEye, LuEyeOff, LuSettings } from 'react-icons/lu'
 import { MdLockReset } from 'react-icons/md'
 
 const TerminalSettings = (): JSX.Element => {
-  const setLayout = useVault((state) => state.setLayout)
-  const components = useVault((state) => state.terminal.components)
-  const toggleComponent = useVault((state) => state.toggleComponent)
+  const resetLayout = useVault((state) => state.resetLayout)
   const ticker = useVault((state) => state.terminal.ticker)
+  const activeComponents = useVault((state) => state.terminal.activeComponents)
+  const inactiveComponents = useVault((state) => state.terminal.inactiveComponents)
+  const addComponent = useVault((state) => state.addComponent)
+  const removeComponent = useVault((state) => state.removeComponent)
 
   const { open, setOpen } = useKBShortcut(KB_SHORTCUT_TERMINAL_SETTINGS)
 
@@ -52,7 +53,7 @@ const TerminalSettings = (): JSX.Element => {
               variant="outline"
               size="sm"
               className="group space-x-2"
-              onClick={() => setLayout(defaultLayout)}
+              onClick={() => resetLayout()}
             >
               <MdLockReset
                 size={ICON_SIZE_SMALL}
@@ -88,10 +89,14 @@ const TerminalSettings = (): JSX.Element => {
                   <LuEyeOff size={ICON_SIZE_SMALL} />
                   <Switch
                     id={component.i}
-                    checked={components[component.i]}
-                    onCheckedChange={() =>
-                      toggleComponent(component.i as keyof TVaultState['terminal']['components'])
-                    }
+                    checked={activeComponents.some((o) => o.i === component.i)}
+                    onCheckedChange={() => {
+                      if (activeComponents.some((o) => o.i === component.i)) {
+                        removeComponent(activeComponents.find((o) => o.i === component.i)!)
+                      } else {
+                        addComponent(inactiveComponents.find((o) => o.i === component.i)!)
+                      }
+                    }}
                   />
                   <LuEye size={ICON_SIZE_SMALL} />
                 </div>
