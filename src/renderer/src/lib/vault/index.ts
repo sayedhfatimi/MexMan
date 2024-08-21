@@ -5,8 +5,8 @@ import _ from 'lodash'
 import type { Layout } from 'react-grid-layout'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { defaultState } from './defaultState'
 import { defaultLayout } from '../consts/terminal/gridConfig'
+import { defaultComponentState, defaultState } from './defaultState'
 
 type TVault = TVaultState & TVaultActions
 
@@ -52,7 +52,12 @@ export const useVault = create<TVault>()(
       resetLayout: (): void =>
         set({
           ...get(),
-          terminal: { ...get().terminal, activeComponents: defaultLayout, inactiveComponents: [] }
+          terminal: {
+            ...get().terminal,
+            activeComponents: defaultLayout,
+            inactiveComponents: [],
+            componentState: defaultComponentState
+          }
         }),
       addComponent: (payload: Layout): void =>
         set({
@@ -74,6 +79,17 @@ export const useVault = create<TVault>()(
             activeComponents: _.reject(get().terminal.activeComponents, (o) => o.i === payload.i),
             inactiveComponents: [...get().terminal.inactiveComponents, payload]
           }
+        }),
+      toggleComponentState: (payload: keyof TVaultState['terminal']['componentState']): void =>
+        set({
+          ...get(),
+          terminal: {
+            ...get().terminal,
+            componentState: {
+              ...get().terminal.componentState,
+              [payload]: !get().terminal.componentState[payload]
+            }
+          }
         })
     }),
     {
@@ -84,7 +100,8 @@ export const useVault = create<TVault>()(
           'ticker',
           'visibleTrades',
           'activeComponents',
-          'inactiveComponents'
+          'inactiveComponents',
+          'componentState'
         ])
       })
     }

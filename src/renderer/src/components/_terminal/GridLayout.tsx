@@ -16,6 +16,7 @@ import RecentTrades from './RecentTrades'
 
 const GridLayout = (): JSX.Element => {
   const layout = useVault((state) => state.terminal.activeComponents)
+  const componentState = useVault((state) => state.terminal.componentState)
   const setLayout = useCallback(
     _.throttle(
       useVault((state) => state.setLayout),
@@ -38,18 +39,17 @@ const GridLayout = (): JSX.Element => {
       { label: 'Depth Chart', node: DepthChart }
     ]
 
-    return layout.map((item) =>
-      terminalComponents
-        .filter((component) => component.label === item.i)
-        .map((component) => (
+    return terminalComponents.map(
+      (component) =>
+        componentState[component.label] && (
           <component.node
-            key={item.i}
+            key={component.label}
             className="flex select-none flex-col border bg-white shadow-md dark:bg-slate-900"
-            data-grid={item}
+            data-grid={layout.find((item) => item.i === component.label)!}
           />
-        ))
+        )
     )
-  }, [layout])
+  }, [layout, componentState])
 
   return (
     <>

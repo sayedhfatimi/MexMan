@@ -11,5 +11,6 @@ export type TVaultState = {
     visibleTrades: number
     activeComponents: Layout[]
     inactiveComponents: Layout[]
+    componentState: { [key: string]: boolean }
   }
 }

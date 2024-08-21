@@ -13,4 +13,5 @@ export type TVaultActions = {
   resetLayout: () => void
   addComponent: (payload: Layout) => void
   removeComponent: (payload: Layout) => void
+  toggleComponentState: (payload: keyof TVaultState['terminal']['componentState']) => void
 }

@@ -25,6 +25,8 @@ const TerminalSettings = (): JSX.Element => {
   const inactiveComponents = useVault((state) => state.terminal.inactiveComponents)
   const addComponent = useVault((state) => state.addComponent)
   const removeComponent = useVault((state) => state.removeComponent)
+  const componentState = useVault((state) => state.terminal.componentState)
+  const toggleComponentState = useVault((state) => state.toggleComponentState)
 
   const { open, setOpen } = useKBShortcut(KB_SHORTCUT_TERMINAL_SETTINGS)
 
@@ -89,12 +91,14 @@ const TerminalSettings = (): JSX.Element => {
                   <LuEyeOff size={ICON_SIZE_SMALL} />
                   <Switch
                     id={component.i}
-                    checked={activeComponents.some((o) => o.i === component.i)}
+                    checked={componentState[component.i]}
                     onCheckedChange={() => {
                       if (activeComponents.some((o) => o.i === component.i)) {
                         removeComponent(activeComponents.find((o) => o.i === component.i)!)
+                        toggleComponentState(component.i)
                       } else {
                         addComponent(inactiveComponents.find((o) => o.i === component.i)!)
+                        toggleComponentState(component.i)
                       }
                     }}
                   />
